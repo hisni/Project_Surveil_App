@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".Next_Deliveries"></activity>
         <activity
             android:name=".Driver_Home"
             android:label="@string/title_activity_driver__home"
