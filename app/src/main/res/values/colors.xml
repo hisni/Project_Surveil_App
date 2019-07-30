@@ -3,5 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="bg">#4c5567</color>
+    <color name="bg">#8a94a8</color>
+    <color name="bgAction"> #4c5567</color>
+    <color name="whiteHash"> #c4c9d4</color>
+    <color name="transparent"> #ffffff00</color>
+    <color name="white"> #ffffff</color>
+
 </resources>
