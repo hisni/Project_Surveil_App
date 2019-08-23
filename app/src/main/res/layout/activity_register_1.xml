@@ -53,14 +53,14 @@
 
 
         <EditText
-            android:id="@+id/mail"
+            android:id="@+id/mailReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E - Mail"
             android:inputType="textEmailAddress"/>
 
         <EditText
-            android:id="@+id/pw"
+            android:id="@+id/pwReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,24 +23,21 @@ public class Register_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_1);
 
-        final EditText etMail = findViewById(R.id.mail);
-        final EditText etPw = findViewById(R.id.pw);
+        final EditText etMail = findViewById(R.id.mailReg);
+        final EditText etPw = findViewById(R.id.pwReg);
         final EditText etPwCnf = findViewById(R.id.pwcnfrm);
         final Button btnSignUp = findViewById(R.id.signupButton);
+        final TextView tvLogIn = findViewById(R.id.hadAccount);
 
-        final String mail = etMail.getText().toString();
-        final String pw1 = etPw.getText().toString();
-        final String pw2 = etPwCnf.getText().toString();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValidMail(mail) && isValidPW(pw1, pw2)){
-                    // Initialize Firebase Auth
-                    mAuth = FirebaseAuth.getInstance();
+                // Initialize Firebase Auth
+                mAuth = FirebaseAuth.getInstance();
 
-                    //create a new user in firebase
-                    mAuth.createUserWithEmailAndPassword(mail, pw1)
+                if (isValidMail(etMail.getText().toString()) && isValidPW(etPw.getText().toString(), etPwCnf.getText().toString())){
+                    mAuth.createUserWithEmailAndPassword(etMail.getText().toString(), etPw.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -50,21 +48,32 @@ public class Register_1 extends AppCompatActivity {
                                     }
                                 }
                             });
+                } else {
+                    Toast.makeText(Register_1.this, "User name or password wrong", Toast.LENGTH_SHORT).show();
                 }
+
+
+            }
+        });
+
+        tvLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
     }
 
-    final private boolean isValidMail(String mail){
-        return true;
+    private boolean isValidMail(String mail){
+        if (mail.length()>0) return true;
+        return false;
     }
 
-    final private boolean isValidPW(String pw1, String pw2){
+    private boolean isValidPW(String pw1, String pw2){
         if (pw1.equals(pw2)){
             return true;
         }
-
         return false;
     }
 }
