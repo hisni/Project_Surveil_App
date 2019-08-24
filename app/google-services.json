@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "506611077781",
+    "firebase_url": "https://co321project-e273b.firebaseio.com",
+    "project_id": "co321project-e273b",
+    "storage_bucket": "co321project-e273b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506611077781:android:4bb82f50e009d062",
+        "android_client_info": {
+          "package_name": "com.aslam.co321_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506611077781-1aeq411toqsapuu9tflbr2dr16ll3b4q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aslam.co321_project",
+            "certificate_hash": "11d1c30e45dea44b79d82b28a00e681281129192"
+          }
+        },
+        {
+          "client_id": "506611077781-kimvhcc0vpvnvjt9t47g616kovev6e11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQHHpkUQ5gU2cNXhqJ4JoO2qTGkVFuvpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506611077781-kimvhcc0vpvnvjt9t47g616kovev6e11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
