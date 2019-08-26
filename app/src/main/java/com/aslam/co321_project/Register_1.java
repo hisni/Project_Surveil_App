@@ -1,5 +1,6 @@
 package com.aslam.co321_project;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register_1 extends AppCompatActivity {
 
@@ -21,6 +24,8 @@ public class Register_1 extends AppCompatActivity {
     EditText etMail;
     EditText etPw;
     EditText etPwCnf;
+    EditText etUserName;
+    EditText etContNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class Register_1 extends AppCompatActivity {
         etPwCnf = findViewById(R.id.pwcnfrm);
         final Button btnSignUp = findViewById(R.id.signupButton);
         final TextView tvLogIn = findViewById(R.id.hadAccount);
+        etUserName = findViewById(R.id.usrname);
+        etContNo = findViewById(R.id.phone);
 
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +54,11 @@ public class Register_1 extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(Register_1.this, "Successfully registered", Toast.LENGTH_SHORT).show();
+
+                                        Intent intProfilePhoto = new Intent(Register_1.this, profile_reg.class);
+                                        intProfilePhoto.putExtra("usrName", etUserName.getText().toString());
+                                        intProfilePhoto.putExtra("phone", etContNo.getText().toString());
+                                        startActivity(intProfilePhoto);
                                     } else {
                                         Toast.makeText(Register_1.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
@@ -66,6 +78,7 @@ public class Register_1 extends AppCompatActivity {
         });
 
     }
+
 
     private boolean isValidMail(String email){
         if (email.isEmpty()) {
