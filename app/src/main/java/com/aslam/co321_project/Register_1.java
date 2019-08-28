@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,44 +28,63 @@ public class Register_1 extends AppCompatActivity {
     EditText etPwCnf;
     EditText etUserName;
     EditText etContNo;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_1);
 
-        etMail = findViewById(R.id.mailReg);
-        etPw = findViewById(R.id.pwReg);
-        etPwCnf = findViewById(R.id.pwcnfrm);
-        final Button btnSignUp = findViewById(R.id.signupButton);
-        final TextView tvLogIn = findViewById(R.id.hadAccount);
-        etUserName = findViewById(R.id.usrname);
-        etContNo = findViewById(R.id.phone);
+        etMail = findViewById(R.id.editTextEmailReg);
+        etPw = findViewById(R.id.editTextPasswordReg);
+        etPwCnf = findViewById(R.id.editTextPasswordConfirmReg);
+        final Button btnSignUp = findViewById(R.id.buttonSignUpReg);
+        final TextView tvLogIn = findViewById(R.id.textViewLoginReg);
+        etUserName = findViewById(R.id.editTextUserNameReg);
+        etContNo = findViewById(R.id.editTextPhoneReg);
+        progressBar = findViewById(R.id.progressbarReg);
 
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Initialize Firebase Auth
-                mAuth = FirebaseAuth.getInstance();
+                try{
+                    // Initialize Firebase Auth
+                    mAuth = FirebaseAuth.getInstance();
+                } catch (Exception e){
+                    Toast.makeText(Register_1.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                }
+
 
                 if (isValidMail(etMail.getText().toString()) && isValidPW(etPw.getText().toString(), etPwCnf.getText().toString())){
-                    mAuth.createUserWithEmailAndPassword(etMail.getText().toString(), etPw.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Register_1.this, "Successfully registered", Toast.LENGTH_SHORT).show();
 
-                                        Intent intProfilePhoto = new Intent(Register_1.this, profile_reg.class);
-                                        intProfilePhoto.putExtra("usrName", etUserName.getText().toString());
-                                        intProfilePhoto.putExtra("phone", etContNo.getText().toString());
-                                        startActivity(intProfilePhoto);
-                                    } else {
-                                        Toast.makeText(Register_1.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                    try{
+                        mAuth.createUserWithEmailAndPassword(etMail.getText().toString(), etPw.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            progressBar.setVisibility(View.GONE);
+
+                                            Intent intent = new Intent(Register_1.this, profile_reg.class);
+                                            intent.putExtra("usrName", etUserName.getText().toString());
+                                            intent.putExtra("phone", etContNo.getText().toString());
+                                            startActivity(intent);
+                                        } else {
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                            progressBar.setVisibility(View.GONE);
+                                            Toast.makeText(Register_1.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    }catch (Exception e){
+                        Toast.makeText(Register_1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
 
@@ -74,6 +95,7 @@ public class Register_1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
             }
         });
 

@@ -43,7 +43,8 @@ public class profile_reg extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReferenceUserInfo;
+    private DatabaseReference databaseReferenceDriverTask;
 
     private final int PICK_IMAGE_REQUEST = 71;
 
@@ -53,7 +54,12 @@ public class profile_reg extends AppCompatActivity {
         setContentView(R.layout.activity_profile_reg);
 
         getParams();
-        mAuth = FirebaseAuth.getInstance();
+
+        try{
+            mAuth = FirebaseAuth.getInstance();
+        } catch (Exception e){
+            Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+        }
         
         spinner = findViewById(R.id.spinnerType);
 
@@ -72,12 +78,23 @@ public class profile_reg extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storage = FirebaseStorage.getInstance();
-                storageReference = storage.getReference();
+
+                try{
+                    storage = FirebaseStorage.getInstance();
+                    storageReference = storage.getReference();
+                } catch (Exception e){
+                    Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                }
 
                 type = spinner.getSelectedItem().toString();
-                ulpoadOtherInfo();
-                uploadImage();
+
+                try {
+                    uid = mAuth.getCurrentUser().getUid();
+                    ulpoadOtherInfo();
+                    uploadImage();
+                } catch (Exception e){
+                    Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -99,6 +116,8 @@ public class profile_reg extends AppCompatActivity {
     //finish the registration
     private void finishActivity() {
         Intent intent = new Intent(profile_reg.this, finishReg.class);
+        intent.putExtra("uid", uid);
+        intent.putExtra("type", type);
         startActivity(intent);
     }
 
@@ -132,8 +151,6 @@ public class profile_reg extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-
-            uid = mAuth.getCurrentUser().getUid();
 
             StorageReference ref = storageReference.child("userImages/"+uid+"/"+ UUID.randomUUID().toString());
             ref.putFile(filePath)
@@ -177,20 +194,17 @@ public class profile_reg extends AppCompatActivity {
 
     //upload user information to firebase
     private void ulpoadOtherInfo() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("userInfo");
-
-        String uid = mAuth.getCurrentUser().getUid();
-
+        databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("userInfo");
+        databaseReferenceDriverTask = FirebaseDatabase.getInstance().getReference("driverTask/"+uid+"/currentDeliveries");
         User user = new User(usrName, phone, type);
-        databaseReference.child(uid).setValue(user);
+        databaseReferenceUserInfo.child(uid).setValue(user);
     }
 
     //function to get parameters from previous activity
     private void getParams() {
         //get parameters from previous activity
-        Intent intent = this.getIntent();
-        usrName = intent.getStringExtra("usrName");
-        phone = intent.getStringExtra("phone");
+        usrName = getIntent().getStringExtra("usrName");
+        phone = getIntent().getStringExtra("phone");
     }
 }
 

@@ -2,89 +2,128 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="4dp"
-    tools:context=".Register_1"
     android:orientation="vertical"
-    android:background="@color/bg"
-    android:gravity="center_vertical">
+    tools:context=".Register_1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get on Board..."
-        android:textSize="30dp"
-        android:textColor="#000000"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/layout_bg"
-        android:layout_gravity="center_vertical"
-        android:gravity="center">
+        android:layout_weight="1">
 
-        <EditText
-            android:id="@+id/usrname"
+        <ImageView
+            android:layout_width="85dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/app_logo" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/blueLogo">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="text"/>
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <EditText
+                android:id="@+id/editTextUserNameReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="user name"
+                android:inputType="text"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+            <EditText
+                android:id="@+id/editTextPhoneReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="contact no"
+                android:inputType="phone"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/editTextEmailReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/editTextPasswordReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:paddingBottom="15dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/editTextPasswordConfirmReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="confirm password"
+                android:inputType="textPassword"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/buttonSignUpReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/textViewLoginReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Already have an account? Login"
+                android:textAlignment="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorAccent"
+                android:textSize="15dp"
+                android:textStyle="italic"/>
 
 
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contact No"
-            android:inputType="phone"/>
+        </LinearLayout>
 
-
-        <EditText
-            android:id="@+id/mailReg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="E - Mail"
-            android:inputType="textEmailAddress"/>
-
-        <EditText
-            android:id="@+id/pwReg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"/>
-
-        <EditText
-            android:id="@+id/pwcnfrm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"/>
-
-        <Button
-            android:id="@+id/signupButton"
+        <ProgressBar
+            android:id="@+id/progressbarReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign up"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
 
 
-    <TextView
-        android:id="@+id/hadAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account?"
-        android:clickable="true"
-        android:textStyle="italic"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
-
+    </RelativeLayout>
 
 
 </LinearLayout>

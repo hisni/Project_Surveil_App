@@ -3,7 +3,6 @@ package com.aslam.co321_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import java.util.Arrays;
 public class Driver_Home extends AppCompatActivity {
 
     ListView lv;
+    String uid;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,6 +33,9 @@ public class Driver_Home extends AppCompatActivity {
         setContentView(R.layout.activity_driver__home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getParams();
+        Toast.makeText(Driver_Home.this, uid, Toast.LENGTH_SHORT).show();
 
         /////////// delivery details  //////////
         lv = findViewById(R.id.deliveries_LV);
@@ -70,6 +73,11 @@ public class Driver_Home extends AppCompatActivity {
 //                        .setAction("Action", null).show();
             }
         });
+    }
+
+    //get parameters from previous activity
+    private void getParams() {
+        uid = getIntent().getStringExtra("uid");
     }
 
 }

@@ -25,6 +25,9 @@
     <string name="menu_send">Send</string>
     <string name="title_activity_test">testActivity</string>
     <string name="title_activity_driver__home">Driver_Home</string>
+    <string name="Close"> Close </string>
+    <string name="Open"> Open </string>
+
     <array name="type">
         <item>Driver</item>
         <item>Pharmacist</item>

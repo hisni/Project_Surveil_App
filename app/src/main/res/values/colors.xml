@@ -8,5 +8,6 @@
     <color name="whiteHash"> #c4c9d4</color>
     <color name="transparent"> #ffffff00</color>
     <color name="white"> #ffffff</color>
+    <color name="blueLogo"> #66c2ff </color>
 
 </resources>

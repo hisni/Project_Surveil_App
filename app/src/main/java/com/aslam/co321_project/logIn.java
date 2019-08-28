@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -21,47 +22,69 @@ public class logIn extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText usernameEditText;
     EditText passwordEditText;
+    String uid;
+    String type;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        usernameEditText = findViewById(R.id.username);
-        passwordEditText = findViewById(R.id.password);
-        final Button loginButton = findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        usernameEditText = findViewById(R.id.editTextEmail);
+        passwordEditText = findViewById(R.id.editTextPassword);
+        final Button loginButton = findViewById(R.id.buttonLogin);
+        progressBar = findViewById(R.id.progressbar);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-        final TextView registerBtn = findViewById(R.id.register);
+        final TextView registerBtn = findViewById(R.id.textViewSignup);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(logIn.this, Register_1.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slid_out_up);
             }
         });
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                try{
+                    // Initialize Firebase Auth
+                    mAuth = FirebaseAuth.getInstance();
+                }  catch (Exception e){
+                    Toast.makeText(logIn.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                }
+
                 if (isValiMail(usernameEditText.getText().toString()) && isValidPW(passwordEditText.getText().toString())){
 
-                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     Task<AuthResult> login_successfull = mAuth.signInWithEmailAndPassword(usernameEditText.getText().toString(), passwordEditText.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    loadingProgressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(logIn.this, "Login Successfull", Toast.LENGTH_SHORT).show();
-                                        startApp(usernameEditText.getText().toString());
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        progressBar.setVisibility(View.GONE);
+
+                                        try{
+                                            //get user id
+                                            uid = mAuth.getCurrentUser().getUid();
+                                        } catch (Exception e){
+                                            Toast.makeText(logIn.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        setType();
+                                        startApp();
                                     } else {
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(logIn.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -70,6 +93,11 @@ public class logIn extends AppCompatActivity {
 
             }
         });
+    }
+
+    //TODO have to implement this function for get the type of the user from database
+    private void setType(){
+        type="Driver";
     }
 
     private boolean isValiMail(String email){
@@ -104,12 +132,41 @@ public class logIn extends AppCompatActivity {
         return true;
     }
 
-    private void startApp(String user){
+    private void startApp(){
         //find the type of user and start the app
+        if(type.equals("Driver")){
+            startDriver();
+        } else if (type.equals("Pharmacist")){
+            startPharmacist();
+        } else {
+            startDistributor();
+        }
+    }
 
-        Intent intentDriver = new Intent(this, Driver_Home.class);
-        intentDriver.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intentDriver);
+    //start app for driver
+    private void startDriver() {
+        Intent intent = new Intent(logIn.this, Driver_Home.class);
+        intent.putExtra("uid", uid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    //start app for pharmacist
+    private void startPharmacist() {
+        Intent intent = new Intent(logIn.this, Pharmacist_Home.class);
+        intent.putExtra("uid", uid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    //start app for distributor
+    private void startDistributor() {
+        Intent intent = new Intent(logIn.this, Distributor_home.class);
+        intent.putExtra("uid", uid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 }

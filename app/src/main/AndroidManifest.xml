@@ -15,23 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".distrReg"></activity>
+        <activity android:name=".Distributor_home"></activity>
+        <activity android:name=".Pharmacist_Home" />
+        <activity android:name=".distrReg" />
         <activity android:name=".pharmReg" />
         <activity android:name=".finishReg" />
         <activity android:name=".profile_reg">
+        </activity>
+        <activity android:name=".logIn" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".logIn" />
         <activity android:name=".Driver_Messages" />
         <activity android:name=".Customer" />
-        <activity
-            android:name=".Driver_Home"
-            android:label="@string/title_activity_driver__home"
-            android:theme="@style/NoActionBar" />
+        <activity android:name=".Driver_Home">
+
+        </activity>
         <activity android:name=".Register_1" />
     </application>
 
