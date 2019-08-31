@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/PopupOverlay"
-                app:title="aslam_m"
+                app:title="alex95"
                 android:textAlignment="center"
                 app:titleMarginStart="55dp"
                 />

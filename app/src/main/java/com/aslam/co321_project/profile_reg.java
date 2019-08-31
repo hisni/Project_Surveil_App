@@ -44,7 +44,7 @@ public class profile_reg extends AppCompatActivity {
     StorageReference storageReference;
     FirebaseAuth mAuth;
     private DatabaseReference databaseReferenceUserInfo;
-    private DatabaseReference databaseReferenceDriverTask;
+    private DatabaseReference databaseReferenceType;
 
     private final int PICK_IMAGE_REQUEST = 71;
 
@@ -152,7 +152,7 @@ public class profile_reg extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("userImages/"+uid+"/"+ UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("userImages/"+uid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -194,10 +194,21 @@ public class profile_reg extends AppCompatActivity {
 
     //upload user information to firebase
     private void ulpoadOtherInfo() {
+        //user information
         databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("userInfo");
-        databaseReferenceDriverTask = FirebaseDatabase.getInstance().getReference("driverTask/"+uid+"/currentDeliveries");
         User user = new User(usrName, phone, type);
         databaseReferenceUserInfo.child(uid).setValue(user);
+
+        //user type
+        if(type.equals("Driver")){
+            databaseReferenceType = FirebaseDatabase.getInstance().getReference("driverList");
+        } else if (type.equals("Pharmacist")){
+            databaseReferenceType = FirebaseDatabase.getInstance().getReference("pharmacist");
+        } else {
+            databaseReferenceType = FirebaseDatabase.getInstance().getReference("distributor");
+        }
+
+        databaseReferenceType.child(uid).setValue(uid);
     }
 
     //function to get parameters from previous activity

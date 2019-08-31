@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Customer extends AppCompatActivity {
 
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +26,9 @@ public class Customer extends AppCompatActivity {
         Intent intent = getIntent();
 
         final String name = intent.getStringExtra("name");
-        final String address = intent.getStringExtra("add");
+        final String address = intent.getStringExtra("address");
+        final String phone = intent.getStringExtra("phone");
+        final String id = intent.getStringExtra("id");
 
         final TextView tvName = findViewById(R.id.shopName);
         final TextView tvAddress = findViewById(R.id.shopAddress);
@@ -34,7 +41,7 @@ public class Customer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:0766289828"));
+                callIntent.setData(Uri.parse(phone));
                 startActivity(callIntent);
             }
         });
@@ -48,6 +55,7 @@ public class Customer extends AppCompatActivity {
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                deleteShop(id);
                                 finish();
                             }
                         })
@@ -57,8 +65,20 @@ public class Customer extends AppCompatActivity {
                 alert.show();
             }
         });
-//
-//        tvName.setText(name);
-//        tvAddress.setText(address);
+
+        tvName.setText(name);
+        tvAddress.setText(address);
+
+    }
+
+    private void deleteShop(String id) {
+        try{
+            databaseReference = FirebaseDatabase.getInstance().getReference("driverTask");
+            databaseReference.child(id).removeValue();
+
+            Toast.makeText(Customer.this, "Pharmacy removed", Toast.LENGTH_SHORT).show();
+        } catch (Exception e){
+            Toast.makeText(Customer.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
