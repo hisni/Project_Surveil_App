@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_assignWork"
+            android:icon="@drawable/ic_airport_shuttle_black_24dp"
+            android:title="Assign Work" />
+        <item
+            android:id="@+id/nav_manageDistributes"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Manage Distributes"/>
+        <item
+            android:id="@+id/nav_myProfile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="My Profile" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_contactUs"
+                android:icon="@drawable/ic_contacts_black_24dp"
+                android:title="Contact Us" />
+        </menu>
+    </item>
+
+</menu>

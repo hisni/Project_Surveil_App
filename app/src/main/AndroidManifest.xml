@@ -13,27 +13,29 @@
         android:label="Project"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".graph"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden">
-
-        </activity>
-        <activity android:name=".add_duties" />
-        <activity android:name=".Distributor.Home" />
-        <activity android:name=".Pharmacist.Home" />
-        <activity android:name=".Authentication.distrReg" />
-        <activity android:name=".Authentication.pharmReg" />
-        <activity android:name=".Authentication.finishReg" />
-        <activity android:name=".Authentication.profile_reg" />
-        <activity android:name=".Authentication.logIn">
+        <activity
+            android:name=".Distributor.Home"
+            android:label="Survail Pharma"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".graph"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity android:name=".add_duties" />
+        <activity android:name=".Pharmacist.Home" />
+        <activity android:name=".Authentication.distrReg" />
+        <activity android:name=".Authentication.pharmReg" />
+        <activity android:name=".Authentication.finishReg" />
+        <activity android:name=".Authentication.profile_reg" />
+        <activity android:name=".Authentication.logIn"></activity>
         <activity android:name=".Driver.Messages" />
         <activity android:name=".Driver.Customer" />
         <activity android:name=".Driver.Home" />
