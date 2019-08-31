@@ -1,4 +1,4 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Driver;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.aslam.co321_project.Delivery;
+import com.aslam.co321_project.R;
+import com.aslam.co321_project.add_duties;
+import com.aslam.co321_project.graph;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Driver_Home extends AppCompatActivity {
+public class Home extends AppCompatActivity {
 
     ListView lv;
     String uid;
@@ -73,12 +74,12 @@ public class Driver_Home extends AppCompatActivity {
     }
 
     private void goToReadings() {
-        Intent intent = new Intent(Driver_Home.this, graph.class);
+        Intent intent = new Intent(Home.this, graph.class);
         startActivity(intent);
     }
 
     private void addDuty() {
-        Intent intent = new Intent(Driver_Home.this, add_duties.class);
+        Intent intent = new Intent(Home.this, add_duties.class);
         intent.putExtra("uid", uid);
         startActivity(intent);
     }
@@ -98,7 +99,7 @@ public class Driver_Home extends AppCompatActivity {
                     shopList.add(shop);
                 }
 
-                ShopList adapter = new ShopList(Driver_Home.this, shopList);
+                ShopList adapter = new ShopList(Home.this, shopList);
                 lv.setAdapter(adapter);
             }
 
@@ -123,7 +124,7 @@ public class Driver_Home extends AppCompatActivity {
 //        try{
 //            setUserName();
 //        }catch (Exception e){
-//            Toast.makeText(Driver_Home.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //        }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("driverTask");
@@ -141,7 +142,7 @@ public class Driver_Home extends AppCompatActivity {
                 TextView tvPhone = view.findViewById(R.id.tvPhone);
                 TextView tvId = view.findViewById(R.id.tvId);
 
-                Intent intent = new Intent(Driver_Home.this, Customer.class);
+                Intent intent = new Intent(Home.this, Customer.class);
 
                 intent.putExtra("name", tvName.getText().toString());
                 intent.putExtra("phone", tvPhone.getText().toString());
@@ -159,7 +160,7 @@ public class Driver_Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Driver_Home.this, Driver_Messages.class);
+                Intent intent = new Intent(Home.this, Messages.class);
                 startActivity(intent);
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
@@ -184,7 +185,7 @@ public class Driver_Home extends AppCompatActivity {
 //
 //    private void setProfilePicture() {
 //        StorageReference ref = storageReference.child("userImages/"+uid);
-//        Glide.with(Driver_Home.this)
+//        Glide.with(Home.this)
 //        .using(new FirebaseImageLoader())
 //            .load(storageReference)
 //        .into(imageView);

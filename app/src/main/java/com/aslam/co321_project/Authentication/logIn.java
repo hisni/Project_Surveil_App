@@ -1,4 +1,4 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Authentication;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.aslam.co321_project.Distributor.Home;
+import com.aslam.co321_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -145,7 +148,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for driver
     private void startDriver() {
-        Intent intent = new Intent(logIn.this, Driver_Home.class);
+        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Driver.Home.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -154,7 +157,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for pharmacist
     private void startPharmacist() {
-        Intent intent = new Intent(logIn.this, Pharmacist_Home.class);
+        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Pharmacist.Home.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -163,7 +166,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for distributor
     private void startDistributor() {
-        Intent intent = new Intent(logIn.this, Distributor_home.class);
+        Intent intent = new Intent(logIn.this, Home.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

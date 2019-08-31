@@ -7,7 +7,7 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Driver_Home"
+    tools:context=".Driver.Home"
     tools:showIn="@layout/activity_driver__home">
 
     <TextView

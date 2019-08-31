@@ -1,4 +1,4 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Driver;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.aslam.co321_project.Delivery;
+import com.aslam.co321_project.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Driver;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,9 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.aslam.co321_project.R;
+
 import java.util.Arrays;
 
-public class Driver_Messages extends AppCompatActivity {
+public class Messages extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

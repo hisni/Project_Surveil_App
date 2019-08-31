@@ -1,10 +1,13 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Authentication;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.aslam.co321_project.Distributor.Home;
+import com.aslam.co321_project.R;
 
 public class finishReg extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class finishReg extends AppCompatActivity {
 
     //start app for driver
     private void startDriver() {
-        Intent intent = new Intent(finishReg.this, Driver_Home.class);
+        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Driver.Home.class);
         intent.putExtra("uid", uid);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -48,7 +51,7 @@ public class finishReg extends AppCompatActivity {
 
     //start app for pharmacist
     private void startPharmacist() {
-        Intent intent = new Intent(finishReg.this, Pharmacist_Home.class);
+        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Pharmacist.Home.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finishAffinity();
@@ -57,7 +60,7 @@ public class finishReg extends AppCompatActivity {
 
     //start app for distributor
     private void startDistributor() {
-        Intent intent = new Intent(finishReg.this, Distributor_home.class);
+        Intent intent = new Intent(finishReg.this, Home.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         finishAffinity();

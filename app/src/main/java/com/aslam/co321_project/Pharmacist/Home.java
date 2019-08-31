@@ -1,13 +1,15 @@
-package com.aslam.co321_project;
+package com.aslam.co321_project.Pharmacist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class pharmReg extends AppCompatActivity {
+import com.aslam.co321_project.R;
+
+public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pharm_reg);
+        setContentView(R.layout.activity_pharmacist__home);
     }
 }

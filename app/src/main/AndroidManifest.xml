@@ -21,23 +21,23 @@
 
         </activity>
         <activity android:name=".add_duties" />
-        <activity android:name=".Distributor_home" />
-        <activity android:name=".Pharmacist_Home" />
-        <activity android:name=".distrReg" />
-        <activity android:name=".pharmReg" />
-        <activity android:name=".finishReg" />
-        <activity android:name=".profile_reg" />
-        <activity android:name=".logIn">
+        <activity android:name=".Distributor.Home" />
+        <activity android:name=".Pharmacist.Home" />
+        <activity android:name=".Authentication.distrReg" />
+        <activity android:name=".Authentication.pharmReg" />
+        <activity android:name=".Authentication.finishReg" />
+        <activity android:name=".Authentication.profile_reg" />
+        <activity android:name=".Authentication.logIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Driver_Messages" />
-        <activity android:name=".Customer" />
-        <activity android:name=".Driver_Home" />
-        <activity android:name=".Register_1" />
+        <activity android:name=".Driver.Messages" />
+        <activity android:name=".Driver.Customer" />
+        <activity android:name=".Driver.Home" />
+        <activity android:name=".Authentication.Register_1" />
     </application>
 
 </manifest>
