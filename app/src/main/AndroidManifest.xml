@@ -13,13 +13,17 @@
         android:label="Project"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.ProfileTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Distributor.Profile1"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.ProfileTheme">
+
+        </activity>
         <activity
             android:name=".Distributor.Home"
             android:label="Survail Pharma"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +40,7 @@
         <activity android:name=".Authentication.pharmReg" />
         <activity android:name=".Authentication.finishReg" />
         <activity android:name=".Authentication.profile_reg" />
-        <activity android:name=".Authentication.logIn"></activity>
+        <activity android:name=".Authentication.logIn" />
         <activity android:name=".Driver.Messages" />
         <activity android:name=".Driver.Customer" />
         <activity android:name=".Driver.Home" />

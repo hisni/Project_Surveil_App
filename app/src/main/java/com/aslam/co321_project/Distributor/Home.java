@@ -79,7 +79,7 @@ public class Home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    //handle the click event for the navigation drawer
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -98,7 +98,10 @@ public class Home extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, manageDistributes).commit();
         } else if (id == R.id.nav_myProfile) {
-
+            setTitle("My Profile");
+            MyProfile myProfile = new MyProfile();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, myProfile).commit();
         } else if (id == R.id.nav_contactUs) {
 
         }
