@@ -1,10 +1,13 @@
 package com.aslam.co321_project.Distributor;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +19,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.aslam.co321_project.AboutUs;
+import com.aslam.co321_project.Driver.Customer;
+import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.R;
 
 public class Home extends AppCompatActivity
@@ -73,10 +79,34 @@ public class Home extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+
+            builder.setMessage("Are you sure?")
+                    .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null);
+
+            AlertDialog alert = builder.create();
+            alert.show();
+            return true;
+        } else if (id == R.id.action_aboutUs) {
+            Intent intent = new Intent(this, AboutUs.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //this function will handle the logout process
+    private void logOut() {
+        Intent intent = new Intent(Home.this, logIn.class);
+        startActivity(intent);
+        finish();
     }
 
     //handle the click event for the navigation drawer
@@ -86,7 +116,10 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            setTitle("Survail Pharma");
+            HomeFragment homeFragment = new HomeFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment, homeFragment).commit();
         } else if (id == R.id.nav_assignWork) {
             setTitle("Assign Work");
             AssignWork assignWork = new AssignWork();
@@ -102,8 +135,6 @@ public class Home extends AppCompatActivity
             MyProfile myProfile = new MyProfile();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment, myProfile).commit();
-        } else if (id == R.id.nav_contactUs) {
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Register_1 extends AppCompatActivity {
+public class SignUp extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     EditText etMail;
@@ -32,7 +32,7 @@ public class Register_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_1);
+        setContentView(R.layout.activity_signup);
 
         etMail = findViewById(R.id.editTextEmailReg);
         etPw = findViewById(R.id.editTextPasswordReg);
@@ -51,7 +51,7 @@ public class Register_1 extends AppCompatActivity {
                     // Initialize Firebase Auth
                     mAuth = FirebaseAuth.getInstance();
                 } catch (Exception e){
-                    Toast.makeText(Register_1.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -69,19 +69,19 @@ public class Register_1 extends AppCompatActivity {
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             progressBar.setVisibility(View.GONE);
 
-                                            Intent intent = new Intent(Register_1.this, profile_reg.class);
+                                            Intent intent = new Intent(SignUp.this, AddAPhoto.class);
                                             intent.putExtra("usrName", etUserName.getText().toString());
                                             intent.putExtra("phone", etContNo.getText().toString());
                                             startActivity(intent);
                                         } else {
                                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             progressBar.setVisibility(View.GONE);
-                                            Toast.makeText(Register_1.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
                     }catch (Exception e){
-                        Toast.makeText(Register_1.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -90,6 +90,7 @@ public class Register_1 extends AppCompatActivity {
             }
         });
 
+        //go to login activity
         tvLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

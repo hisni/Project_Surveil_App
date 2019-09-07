@@ -45,7 +45,7 @@ public class logIn extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(logIn.this, Register_1.class);
+                Intent intent = new Intent(logIn.this, SignUp.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slid_out_up);
             }

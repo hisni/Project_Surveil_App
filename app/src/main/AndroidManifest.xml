@@ -15,36 +15,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ProfileTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Distributor.Profile1"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.ProfileTheme">
-
+        <activity android:name=".Authentication.DistributorShopDetail"></activity>
+        <activity android:name=".Authentication.PharmacyDet">
         </activity>
+        <activity android:name=".AboutUs" />
         <activity
             android:name=".Distributor.Home"
             android:label="Survail Pharma"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".graph"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity android:name=".add_duties" />
         <activity android:name=".Pharmacist.Home" />
-        <activity android:name=".Authentication.distrReg" />
-        <activity android:name=".Authentication.pharmReg" />
         <activity android:name=".Authentication.finishReg" />
-        <activity android:name=".Authentication.profile_reg" />
-        <activity android:name=".Authentication.logIn" />
+        <activity android:name=".Authentication.AddAPhoto" />
+        <activity android:name=".Authentication.logIn" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Driver.Messages" />
         <activity android:name=".Driver.Customer" />
         <activity android:name=".Driver.Home" />
-        <activity android:name=".Authentication.Register_1" />
+        <activity android:name=".Authentication.SignUp" />
     </application>
 
 </manifest>

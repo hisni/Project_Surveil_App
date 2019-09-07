@@ -31,7 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class profile_reg extends AppCompatActivity {
+public class AddAPhoto extends AppCompatActivity {
 
     String usrName;
     String phone;
@@ -52,14 +52,14 @@ public class profile_reg extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_reg);
+        setContentView(R.layout.activity_addaphoto);
 
         getParams();
 
         try{
             mAuth = FirebaseAuth.getInstance();
         } catch (Exception e){
-            Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddAPhoto.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
         }
         
         spinner = findViewById(R.id.spinnerType);
@@ -84,17 +84,17 @@ public class profile_reg extends AppCompatActivity {
                     storage = FirebaseStorage.getInstance();
                     storageReference = storage.getReference();
                 } catch (Exception e){
-                    Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAPhoto.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
                 }
 
                 type = spinner.getSelectedItem().toString();
 
+                //get the current user id
                 try {
                     uid = mAuth.getCurrentUser().getUid();
-                    ulpoadOtherInfo();
-                    uploadImage();
+                    uploadData();
                 } catch (Exception e){
-                    Toast.makeText(profile_reg.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAPhoto.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -102,21 +102,21 @@ public class profile_reg extends AppCompatActivity {
 
     //go to distributor's shop registration
     private void distrReg() {
-        Intent intent = new Intent(profile_reg.this, distrReg.class);
+        Intent intent = new Intent(AddAPhoto.this, DistributorShopDetail.class);
         intent.putExtra("uid", uid);
         startActivity(intent);
     }
 
     //go to pharmacy registration
     private void pharmReg(){
-        Intent intent = new Intent(profile_reg.this, pharmReg.class);
+        Intent intent = new Intent(AddAPhoto.this, PharmacyDet.class);
         intent.putExtra("uid", uid);
         startActivity(intent);
     }
 
     //finish the registration
     private void finishActivity() {
-        Intent intent = new Intent(profile_reg.this, finishReg.class);
+        Intent intent = new Intent(AddAPhoto.this, finishReg.class);
         intent.putExtra("uid", uid);
         intent.putExtra("type", type);
         startActivity(intent);
@@ -146,8 +146,8 @@ public class profile_reg extends AppCompatActivity {
         }
     }
 
-    //upload image to firebase
-    private void uploadImage() {
+    //upload image and other data to firebase
+    private void uploadData() {
         if (filePath!=null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -159,14 +159,14 @@ public class profile_reg extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(profile_reg.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddAPhoto.this, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(profile_reg.this, "Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddAPhoto.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -181,12 +181,10 @@ public class profile_reg extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if(type.equals("Driver")){
-                                finishActivity();
-                            } else if (type.equals("Pharmacist")){
-                                pharmReg();
-                            } else {
-                                distrReg();
+                            try {
+                                ulpoadOtherInfo();
+                            } catch (Exception e){
+                                Toast.makeText(AddAPhoto.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -202,14 +200,14 @@ public class profile_reg extends AppCompatActivity {
 
         //user type
         if(type.equals("Driver")){
-            databaseReferenceType = FirebaseDatabase.getInstance().getReference("driverList");
+            databaseReferenceType = FirebaseDatabase.getInstance().getReference("drivers");
+            databaseReferenceType.child(uid).setValue(uid);
+            finishActivity();
         } else if (type.equals("Pharmacist")){
-            databaseReferenceType = FirebaseDatabase.getInstance().getReference("pharmacist");
+            pharmReg();
         } else {
-            databaseReferenceType = FirebaseDatabase.getInstance().getReference("distributor");
+            distrReg();
         }
-
-        databaseReferenceType.child(uid).setValue(uid);
     }
 
     //function to get parameters from previous activity

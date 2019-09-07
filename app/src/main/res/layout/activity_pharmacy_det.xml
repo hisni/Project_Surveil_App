@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Authentication.PharmacyDet">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Your Pharmacy Details"
+            android:textSize="20dp"
+            android:paddingTop="20dp"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/blueLogo"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/blueLogo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <EditText
+                android:id="@+id/editTextPharmacyNameReg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="pharmacy name"
+                android:inputType="text"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+            <EditText
+                android:id="@+id/editTextPhonePharm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="contact no"
+                android:inputType="phone"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <EditText
+                android:id="@+id/editTextAddressPharm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:hint="address"
+                android:inputType="text"
+                android:paddingBottom="12dp"
+                android:textColorHint="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/buttonAddCoordinate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="coordinates"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapViewPharmacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_margin="15dp"/>
+
+
+
+
+            <Button
+                android:id="@+id/buttonAddPharm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="add"
+                android:textColor="@color/colorAccent" />
+
+
+
+
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbarReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

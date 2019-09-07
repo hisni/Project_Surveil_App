@@ -6,4 +6,8 @@
         android:orderInCategory="100"
         android:title="Log out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_aboutUs"
+        android:icon="@drawable/ic_contacts_black_24dp"
+        android:title="About Us" />
 </menu>
