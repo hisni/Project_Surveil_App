@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -20,19 +19,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import com.aslam.co321_project.AboutUs;
-import com.aslam.co321_project.Driver.Customer;
 import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.R;
 
+
+//distributor
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private Fragment mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_distributor);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

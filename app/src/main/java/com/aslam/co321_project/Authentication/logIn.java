@@ -63,7 +63,7 @@ public class logIn extends AppCompatActivity {
                     Toast.makeText(logIn.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
                 }
 
-                if (isValiMail(usernameEditText.getText().toString()) && isValidPW(passwordEditText.getText().toString())){
+                if (isMailValid(usernameEditText.getText().toString()) && isPwValid(passwordEditText.getText().toString())){
 
                     progressBar.setVisibility(View.VISIBLE);
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -100,10 +100,10 @@ public class logIn extends AppCompatActivity {
 
     //TODO have to implement this function for get the type of the user from database
     private void setType(){
-        type="Driver";
+        type="Driv";
     }
 
-    private boolean isValiMail(String email){
+    private boolean isMailValid(String email){
         if (email.isEmpty()) {
             usernameEditText.setError("Email is required");
             usernameEditText.requestFocus();
@@ -119,7 +119,7 @@ public class logIn extends AppCompatActivity {
         return true;
     }
 
-    private boolean isValidPW(String password){
+    private boolean isPwValid(String password){
         if (password.isEmpty()) {
             passwordEditText.setError("Password is required");
             passwordEditText.requestFocus();

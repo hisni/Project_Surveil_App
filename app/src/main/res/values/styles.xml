@@ -33,10 +33,10 @@
     <!--styles for profile-->
     <style name="AppTheme.ProfileTheme">
         <item name="colorPrimaryDark">@color/profilePrimaryDark</item>
-        <item name="colorAccent">@color/profileAccentColor</item>
+        <item name="colorAccent">@color/colorAccent</item>  //edit text line color
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textColor">@color/blackTextColor</item>
     </style>
 
     <style name="TransparentText" parent="@android:style/TextAppearance">
@@ -113,4 +113,13 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:minWidth">250dp</item>
     </style>
+
+    <style name="AppTheme.ProfileTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.ProfileTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.ProfileTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
