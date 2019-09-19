@@ -19,10 +19,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class logIn extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     EditText usernameEditText;
     EditText passwordEditText;
     String uid;
@@ -45,6 +50,7 @@ public class logIn extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                finish();
                 Intent intent = new Intent(logIn.this, SignUp.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slid_out_up);
@@ -73,9 +79,6 @@ public class logIn extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                        progressBar.setVisibility(View.GONE);
-
                                         try{
                                             //get user id
                                             uid = mAuth.getCurrentUser().getUid();
@@ -83,7 +86,6 @@ public class logIn extends AppCompatActivity {
                                             Toast.makeText(logIn.this, "Oops! network error!", Toast.LENGTH_SHORT).show();
                                         }
 
-                                        setType();
                                         startApp();
                                     } else {
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -96,11 +98,6 @@ public class logIn extends AppCompatActivity {
 
             }
         });
-    }
-
-    //TODO have to implement this function for get the type of the user from database
-    private void setType(){
-        type="Driv";
     }
 
     private boolean isMailValid(String email){
@@ -135,21 +132,45 @@ public class logIn extends AppCompatActivity {
         return true;
     }
 
+    //find the type of user and start the app
     private void startApp(){
-        //find the type of user and start the app
-        if(type.equals("Driver")){
-            startDriver();
-        } else if (type.equals("Pharmacist")){
-            startPharmacist();
-        } else {
-            startDistributor();
+
+        try{
+            DatabaseReference databaseReference;
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("userInfo").child(uid);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBar.setVisibility(View.GONE);
+
+                    type = dataSnapshot.child("type").getValue().toString();
+
+                    if(type.equals("Driver")){
+                        startDriver();
+                    } else if (type.equals("Pharmacist")){
+                        startPharmacist();
+                    } else {
+                        startDistributor();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
     //start app for driver
     private void startDriver() {
         Intent intent = new Intent(logIn.this, com.aslam.co321_project.Driver.Home.class);
         intent.putExtra("uid", uid);
+//        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
@@ -159,6 +180,7 @@ public class logIn extends AppCompatActivity {
     private void startPharmacist() {
         Intent intent = new Intent(logIn.this, com.aslam.co321_project.Pharmacist.Home.class);
         intent.putExtra("uid", uid);
+//        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
@@ -168,6 +190,7 @@ public class logIn extends AppCompatActivity {
     private void startDistributor() {
         Intent intent = new Intent(logIn.this, Home.class);
         intent.putExtra("uid", uid);
+//        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

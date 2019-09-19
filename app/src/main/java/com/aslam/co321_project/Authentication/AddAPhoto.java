@@ -201,7 +201,7 @@ public class AddAPhoto extends AppCompatActivity {
         //user type
         if(type.equals("Driver")){
             databaseReferenceType = FirebaseDatabase.getInstance().getReference("drivers");
-            databaseReferenceType.child(uid).setValue(uid);
+            databaseReferenceType.child(uid).child("uid").setValue(uid);
             finishActivity();
         } else if (type.equals("Pharmacist")){
             pharmReg();

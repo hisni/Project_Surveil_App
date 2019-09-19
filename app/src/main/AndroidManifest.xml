@@ -15,52 +15,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ProfileTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-
-        <!--Authentication activities-->
-        <activity android:name=".Authentication.DistributorShopDetail"/>
-        <activity android:name=".Authentication.PharmacyDet"/>
-        <activity android:name=".Authentication.finishReg"/>
-        <activity android:name=".Authentication.AddAPhoto"/>
-        <activity android:name=".Authentication.SignUp"/>
-        <activity android:name=".Authentication.logIn">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        
-        <!--Distributor activities-->
+        <!-- Authentication activities -->
+        <activity android:name=".Authentication.DistributorShopDetail" />
+        <activity android:name=".Authentication.PharmacyDet" />
+        <activity android:name=".Authentication.finishReg" />
+        <activity android:name=".Authentication.AddAPhoto" />
+        <activity android:name=".Authentication.SignUp" />
+        <activity android:name=".Authentication.logIn">
+
+        </activity>
+
+
+        <!-- Distributor activities -->
         <activity
             android:name=".Distributor.Home"
             android:label="Survail Pharma"
-            android:theme="@style/AppTheme.NoActionBar" />
-        
-        
-        <!--Pharmacist activities-->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Pharmacist activities -->
         <activity
             android:name=".Pharmacist.Home"
             android:label="Survail Pharma"
-            android:theme="@style/AppTheme.ProfileTheme.NoActionBar">
-        </activity>
-        
-        
-        <!--Driver activities-->
-        <activity android:name=".Driver.Messages"/>
-        <activity android:name=".Driver.Customer"/>
-        <activity android:name=".Driver.Home"/>
-        
-        
-        <!--Common activities-->
+            android:theme="@style/AppTheme.ProfileTheme.NoActionBar" /> <!-- Driver activities -->
+        <activity android:name=".Driver.Messages" />
+        <activity android:name=".Driver.Customer" />
+        <activity android:name=".Driver.Home" /> <!-- Common activities -->
         <activity
             android:name=".graph"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".add_duties"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".add_duties" />
         <activity android:name=".AboutUs" />
-        
-        
     </application>
+
 </manifest>

@@ -15,10 +15,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.Delivery;
 import com.aslam.co321_project.R;
 import com.aslam.co321_project.add_duties;
 import com.aslam.co321_project.graph;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,7 @@ public class Home extends AppCompatActivity {
 
     ListView lv;
     String uid;
+    String email;
     StorageReference storageReference;
     private DatabaseReference databaseReferenceUserInfo;
     ImageView imageView;
@@ -191,8 +194,17 @@ public class Home extends AppCompatActivity {
 //        .into(imageView);
 //    }
 
+    //this function will handle the logout process
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(com.aslam.co321_project.Driver.Home.this, logIn.class);
+        finish();
+        finishAffinity();
+        startActivity(intent);
+    }
     //get parameters from previous activity
     private void getParams() {
+        email = getIntent().getStringExtra("email");
         uid = getIntent().getStringExtra("uid");
     }
 

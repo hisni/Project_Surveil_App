@@ -1,20 +1,25 @@
 package com.aslam.co321_project.Distributor;
 
-
-import android.app.ActionBar;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentController;
-import android.support.v4.app.FragmentTransaction;
-import android.view.FrameStats;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.aslam.co321_project.R;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static com.aslam.co321_project.Distributor.Home.databaseReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +27,8 @@ import com.aslam.co321_project.R;
 public class ManageDistributes extends Fragment {
 
     View view;
+    ListView myListView;
+    ArrayList<Work> deliveryList = new ArrayList<>();
 
     public ManageDistributes() {
         // Required empty public constructor
@@ -32,21 +39,46 @@ public class ManageDistributes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_manage_distributes, container, false);
-        handleListView(view);
+        myListView = view.findViewById(R.id.lvManageDist);
+
+        try {
+            setListView();
+        } catch (Exception e){
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
         return view;
     }
 
+    //retrieve data from firebase
+    private void setListView() {
 
-    //list view in manage distribution
-    private void handleListView(View view) {
-        String [] items = {"1st", "2nd", "3rd", "2nd", "3rd", "2nd", "3rd", "2nd", "3rd", "2nd", "3rd", "2nd", "3rd"};
+        databaseReference.child("ongoingDeliveries").child(Home.uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        ListView listView = view.findViewById(R.id.lvManageDist);
+                for (DataSnapshot deliverySnapShot : dataSnapshot.getChildren()) {
+                    String pharmacy = deliverySnapShot.child("pharmacy").getValue().toString();
+                    String driver = deliverySnapShot.child("driver").getValue().toString();
+                    List<String> boxList = Collections.singletonList(deliverySnapShot.child("boxList").getValue().toString());
 
-        ArrayAdapter<String> lvAdapter = new ArrayAdapter<String>(getActivity(), R.layout.show_drivers, items);
+                    Work work = new Work(driver, pharmacy, boxList);
 
-        listView.setAdapter(lvAdapter);
+                    deliveryList.add(work);
+                }
+
+                CustomListAdapter customListAdapter = new CustomListAdapter(getContext(), R.layout.simplerow, deliveryList);
+                myListView.setAdapter(customListAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-
 }
+
+
+

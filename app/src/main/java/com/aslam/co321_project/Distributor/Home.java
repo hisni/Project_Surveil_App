@@ -3,6 +3,7 @@ package com.aslam.co321_project.Distributor;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -17,20 +18,56 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aslam.co321_project.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 //distributor
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ImageView dpView;
+    TextView tvUserName;
+    TextView tvMail;
+
+    static String uid;
+    static DatabaseReference databaseReference;
+
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_distributor);
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        tvUserName = navigationView.getHeaderView(0).findViewById(R.id.distributorName);
+        dpView = navigationView.getHeaderView(0).findViewById(R.id.dpDistributor);
+        tvMail = navigationView.getHeaderView(0).findViewById(R.id.distributorMail);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        getParams();
+
+        try {
+            setUserDetails();
+        } catch (Exception e){
+            Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,6 +86,53 @@ public class Home extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setUserDetails() {
+
+        try{
+            setUserImage();
+        } catch (Exception e){
+            setDefaultUserImage();
+        }
+
+        try{
+            setUserName();
+        } catch (Exception e){
+            tvUserName.setText("");
+        }
+
+        try{
+            setMail();
+        } catch (Exception e){
+            tvMail.setText("");
+        }
+    }
+
+    private void setDefaultUserImage() {
+    }
+
+    private void setUserImage() {
+    }
+
+    private void setMail() {
+        tvMail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+    }
+
+
+    private void setUserName() {
+        databaseReference.child("userInfo").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String usrNAme = dataSnapshot.child("name").getValue().toString();
+                tvUserName.setText(usrNAme);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -100,13 +184,6 @@ public class Home extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    //this function will handle the logout process
-    private void logOut() {
-        Intent intent = new Intent(Home.this, logIn.class);
-        startActivity(intent);
-        finish();
-    }
-
     //handle the click event for the navigation drawer
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -139,4 +216,20 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //this function will handle the logout process
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(Home.this, logIn.class);
+        finish();
+        finishAffinity();
+        startActivity(intent);
+    }
+
+
+    //get parameters from previous activity
+    private void getParams() {
+        uid = getIntent().getStringExtra("uid");
+    }
+
 }
