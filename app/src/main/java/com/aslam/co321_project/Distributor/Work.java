@@ -3,8 +3,8 @@ package com.aslam.co321_project.Distributor;
 import java.util.List;
 
 class Work {
-    String driver;
-    String pharmacy;
+    private String driver;
+    private String pharmacy;
     List boxList;
 
     public Work(String driver, String pharmacy, List boxList) {
