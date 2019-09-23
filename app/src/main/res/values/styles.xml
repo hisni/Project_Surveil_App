@@ -30,10 +30,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!--styles for profile-->
+    <!--&lt;!&ndash;styles for profile&ndash;&gt;-->
     <style name="AppTheme.ProfileTheme">
         <item name="colorPrimaryDark">@color/profilePrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>  //edit text line color
+        <item name="colorAccent">@color/colorAccent</item>
+        //edit text line color
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/blackTextColor</item>
@@ -122,4 +123,5 @@
     <style name="AppTheme.ProfileTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.ProfileTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
