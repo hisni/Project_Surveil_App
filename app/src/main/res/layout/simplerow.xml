@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="23sp"
-        android:text="ABC"
         android:textStyle="bold"
         android:gravity="center"/>
 
@@ -19,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="13sp"
-        android:text="XYZ"
         android:gravity="center"/>
 
 </LinearLayout>

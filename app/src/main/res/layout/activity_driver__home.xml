@@ -1,57 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Driver.Home"
-    android:background="@color/bg">
+    android:orientation="vertical"
+    tools:context=".Driver.Home">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarDriver"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppBarOverlay"
-        android:background="@color/bgAction"
-        >
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blueLogo"
+        app:popupTheme="@style/PopupOverlay"
+        app:title="Surveil Pharma"
+        app:titleTextColor="@color/white"
+        app:titleMarginStart="30dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="65dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="match_parent"
-                >
-            </ImageView>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/PopupOverlay"
-                app:title="alex95"
-                android:textAlignment="center"
-                app:titleMarginStart="55dp"
-                />
-        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
 
+    <include layout="@layout/content_driver__home"/>
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_driver__home" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        android:background="@color/bg"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

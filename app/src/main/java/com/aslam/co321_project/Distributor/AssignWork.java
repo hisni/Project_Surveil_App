@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aslam.co321_project.R;
+import com.aslam.co321_project.Work;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,9 +40,9 @@ public class AssignWork extends Fragment {
 
     DatabaseReference userInfoReference;
     View view;
-    String driverName;
     Spinner driverSpinner, pharmacySpinner;
-    List<String> driverIds;
+    private HashMap<Integer, String> driverMap = new HashMap<>();
+    private HashMap<Integer, String> pharmacyMap = new HashMap<>();
 
 
     public AssignWork() {
@@ -101,26 +103,28 @@ public class AssignWork extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                driverIds = new ArrayList<>();
+                final List<String> driverNames = new ArrayList<>();
 
+                int i = 0;
                 for(DataSnapshot driverSnapShot: dataSnapshot.getChildren()){
 
                     String driverId = driverSnapShot.child("uid").getValue(String.class);
-
+                    driverMap.put(i, driverId);
+                    i++;
                     userInfoReference.child(driverId).child("name").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            driverName = dataSnapshot.getValue(String.class);
+                            String driverName = dataSnapshot.getValue(String.class);
 
                             //we have wait until data is get retrieved
                             try {
-                                driverIds.add(driverName);
+                                driverNames.add(driverName);
                             } catch (Exception e){
                                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             driverSpinner = view.findViewById(R.id.spinnerSelectDriver);
-                            ArrayAdapter<String> driverAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, driverIds);
+                            ArrayAdapter<String> driverAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, driverNames);
                             driverAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             driverSpinner.setAdapter(driverAdapter);
                         }
@@ -145,15 +149,20 @@ public class AssignWork extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                final List<String> pharmacyIds = new ArrayList<>();
+                final List<String> pharmacyNames = new ArrayList<>();
 
+                int i = 0;
                 for(DataSnapshot pharmacySnapShot: dataSnapshot.getChildren()){
-                    String pharmacyId = pharmacySnapShot.child("pharmacyName").getValue(String.class);
-                    pharmacyIds.add(pharmacyId);
+                    String pharmacyName = pharmacySnapShot.child("pharmacyName").getValue(String.class);
+                    pharmacyNames.add(pharmacyName);
+
+                    String pharmacyId = pharmacySnapShot.child("pharmacyId").getValue(String.class);
+                    pharmacyMap.put(i, pharmacyId);
+                    i++;
                 }
 
                 pharmacySpinner = view.findViewById(R.id.spinnerSelectPharmacy);
-                ArrayAdapter<String> pharmacyAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, pharmacyIds);
+                ArrayAdapter<String> pharmacyAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, pharmacyNames);
                 pharmacyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 pharmacySpinner.setAdapter(pharmacyAdapter);
             }
@@ -166,12 +175,18 @@ public class AssignWork extends Fragment {
     }
 
     private void uploadData(List splittedBoxList) {
-        String selectedDriver = driverSpinner.getSelectedItem().toString();
-        String selectedPharmacy = pharmacySpinner.getSelectedItem().toString();
+        long tempDriverId = driverSpinner.getSelectedItemId();
+        long tempPharmacyId = pharmacySpinner.getSelectedItemId();
 
-        Work work = new Work(selectedDriver, selectedPharmacy, splittedBoxList);
+        final String selectedDriverId = driverMap.get((int)tempDriverId);
+        final String selectedPharmacyId = pharmacyMap.get((int)tempPharmacyId);
 
-        databaseReference.child("ongoingDeliveries/"+ Home.uid+"/").child(UUID.randomUUID().toString()).setValue(work)
+        String selectedDriverName = driverSpinner.getSelectedItem().toString();
+        String selectedPharmacyName = pharmacySpinner.getSelectedItem().toString();
+        Work work = new Work(selectedDriverId, selectedPharmacyId, selectedDriverName, selectedPharmacyName, splittedBoxList);
+
+        final String randomId = UUID.randomUUID().toString();
+        databaseReference.child("ongoingDeliveries/"+ Home.uid+"/").child(randomId).setValue(work)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -184,6 +199,11 @@ public class AssignWork extends Fragment {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 });
+
+        TaskClass taskClass = new TaskClass(Home.uid, randomId);
+        databaseReference.child("driverTask").child(selectedDriverId).child(UUID.randomUUID().toString()).setValue(taskClass);
+        databaseReference.child("pharmacyTask").child(selectedPharmacyId).child(UUID.randomUUID().toString()).setValue(taskClass);
     }
+
 
 }

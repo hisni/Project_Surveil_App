@@ -1,4 +1,4 @@
-package com.aslam.co321_project.Distributor;
+package com.aslam.co321_project;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,11 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
-
-import com.aslam.co321_project.BoxConditions;
-import com.aslam.co321_project.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

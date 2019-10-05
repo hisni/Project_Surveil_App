@@ -29,7 +29,7 @@
             android:label="Survail Pharma"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BoxConditions"></activity>
-        <activity android:name=".Distributor.ViewDistribution"></activity>
+        <activity android:name=".ViewDistribution"></activity>
 
         <!-- Pharmacist activities -->
         <activity
@@ -40,7 +40,9 @@
         <!-- Driver activities -->
         <activity android:name=".Driver.Messages" />
         <activity android:name=".Driver.Customer" />
-        <activity android:name=".Driver.Home" />
+        <activity android:name=".Driver.Home" >
+
+        </activity>
 
         <!-- Common activities -->
         <activity android:name=".MainActivity">

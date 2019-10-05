@@ -2,7 +2,6 @@ package com.aslam.co321_project.Distributor;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.aslam.co321_project.CustomListAdapter;
 import com.aslam.co321_project.R;
 
+import com.aslam.co321_project.ViewDistribution;
+import com.aslam.co321_project.Work;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -77,8 +78,7 @@ public class ManageDistributes extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), ViewDistribution.class);
-                intent.putExtra("pharmacy", deliveryList.get(position).getPharmacy());
-                intent.putExtra("driver", deliveryList.get(position).getDriver());
+                intent.putExtra("pharmacy", deliveryList.get(position).getTitle());
                 intent.putExtra("boxList", (Serializable) deliveryList.get(position).boxList);
                 startActivity(intent);
             }
@@ -95,11 +95,11 @@ public class ManageDistributes extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot deliverySnapShot : dataSnapshot.getChildren()) {
-                    String pharmacy = deliverySnapShot.child("pharmacy").getValue().toString();
-                    String driver = deliverySnapShot.child("driver").getValue().toString();
+                    String pharmacyName = deliverySnapShot.child("pharmacyName").getValue().toString();
+                    String driverName = deliverySnapShot.child("driverName").getValue().toString();
                     List<String> boxList = Collections.singletonList(deliverySnapShot.child("boxList").getValue().toString());
 
-                    Work work = new Work(driver, pharmacy, boxList);
+                    Work work = new Work(pharmacyName, driverName, boxList);
 
                     deliveryList.add(work);
                 }

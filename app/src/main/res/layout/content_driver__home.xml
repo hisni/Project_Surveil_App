@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Driver.Home"
-    tools:showIn="@layout/activity_driver__home">
+    android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/textView2"
+    <SearchView
+        android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Next Deliveries"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        android:queryHint="search a box"
+        android:iconifiedByDefault="false"
+        android:layout_marginRight="20dp">
+    </SearchView>
 
     <ListView
-        android:id="@+id/deliveries_LV"
+        android:id="@+id/lvManageDistDriver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbarSize="1dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:background="@color/whiteHash"/>
+        android:dividerHeight="5dp"
+        android:divider="@color/white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:background="@drawable/layout_bg">
+    </ListView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

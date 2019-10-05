@@ -1,4 +1,4 @@
-package com.aslam.co321_project.Distributor;
+package com.aslam.co321_project;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import com.aslam.co321_project.R;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ class ViewHolder{
     TextView driver;
 }
 
-class CustomListAdapter extends ArrayAdapter<Work> {
+public class CustomListAdapter extends ArrayAdapter<Work> {
 
     private Context mContext;
     private int mResource;
@@ -37,9 +36,9 @@ class CustomListAdapter extends ArrayAdapter<Work> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //get the delivery  information
-        String pharmacy = getItem(position).getPharmacy();
-        String driver = getItem(position).getDriver();
-        List<String> boxList = getItem(position).getBoxList();
+        String pharmacyName = getItem(position).getTitle();
+        String driverName = getItem(position).getSubTitle();
+//        List<String> boxList = getItem(position).boxList;
 
         //create the view result for showing the animation
         final View result;
@@ -69,8 +68,8 @@ class CustomListAdapter extends ArrayAdapter<Work> {
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.pharmacy.setText(pharmacy);
-        viewHolder.driver.setText(driver);
+        viewHolder.pharmacy.setText(pharmacyName);
+        viewHolder.driver.setText(driverName);
 
         return convertView;
     }

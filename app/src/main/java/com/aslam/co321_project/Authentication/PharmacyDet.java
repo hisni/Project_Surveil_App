@@ -60,7 +60,7 @@ public class PharmacyDet extends AppCompatActivity {
     private void ulpoadPharmacyInfo() {
         //user information
         databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("pharmacies");
-        Pharmacy pharmacy = new Pharmacy(pharmacyName, pharmacyPhone, pharmacyAddress);
+        Pharmacy pharmacy = new Pharmacy(uid,pharmacyName, pharmacyPhone, pharmacyAddress);
         databaseReferenceUserInfo.child(uid).setValue(pharmacy)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

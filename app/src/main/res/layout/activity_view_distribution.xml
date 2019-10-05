@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Distributor.ViewDistribution"
+    tools:context=".ViewDistribution"
     android:orientation="vertical">
 
     <android.widget.Toolbar
@@ -74,7 +74,7 @@
         android:gravity="center"
         android:textStyle="normal"
         android:layout_marginBottom="10dp"
-        android:text="This boxes are transported to\n pharmacyName - CityName"
+        android:text="This boxes are transported to\n title - CityName"
         />
 
 

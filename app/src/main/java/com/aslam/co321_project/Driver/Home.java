@@ -1,182 +1,97 @@
 package com.aslam.co321_project.Driver;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.aslam.co321_project.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
-import com.aslam.co321_project.Delivery;
+import com.aslam.co321_project.CustomListAdapter;
 import com.aslam.co321_project.R;
-import com.aslam.co321_project.add_duties;
-import com.aslam.co321_project.graph;
+import com.aslam.co321_project.ViewDistribution;
+import com.aslam.co321_project.Work;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+
+
 public class Home extends AppCompatActivity {
-
-    ListView lv;
-    String uid;
-    String email;
-    StorageReference storageReference;
-    private DatabaseReference databaseReferenceUserInfo;
-    ImageView imageView;
-    Toolbar toolbar;
-
+    static String uid;
     DatabaseReference databaseReference;
-    List<Delivery> shopList;
 
-//    // Reference to an image file in Firebase Storage
-//    StorageReference storageReference = ...;
-//
-//    // ImageView in your Activity
-//    ImageView imageView = ...;
-//
-//// Load the image using Glide
-//Glide.with(this /* context */)
-//        .using(new FirebaseImageLoader())
-//            .load(storageReference)
-//        .into(imageView);
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.assignDriverTask:
-                addDuty();
-                return true;
-            case  R.id.readings:
-                goToReadings();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void goToReadings() {
-        Intent intent = new Intent(Home.this, graph.class);
-        startActivity(intent);
-    }
-
-    private void addDuty() {
-        Intent intent = new Intent(Home.this, add_duties.class);
-        intent.putExtra("uid", uid);
-        startActivity(intent);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                shopList.clear();
-                for(DataSnapshot shopSnapShot: dataSnapshot.getChildren()){
-                    Delivery shop = shopSnapShot.getValue(Delivery.class);
-
-                    shopList.add(shop);
-                }
-
-                ShopList adapter = new ShopList(Home.this, shopList);
-                lv.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
+    private ArrayList<Work> deliveryList = new ArrayList<>();
+    private HashMap<Integer, String> distributorIdMap;
+    private HashMap<Integer, String> randomIdMap;
+    private ListView myListView;
+    private CustomListAdapter customListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver__home);
-        toolbar = findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbarDriver);
         setSupportActionBar(toolbar);
 
-        imageView = findViewById(R.id.imageView3);
-
+        myListView = findViewById(R.id.lvManageDistDriver);
         getParams();
-//        setProfilePicture();
-//        try{
-//            setUserName();
-//        }catch (Exception e){
-//            Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("driverTask");
+        try {
+            databaseReference = FirebaseDatabase.getInstance().getReference();
 
+            //setlistview
+            getPaths();
+        } catch (Exception e){
+            Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
-        lv = findViewById(R.id.deliveries_LV);
-
-        shopList= new ArrayList<>();
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tvName = view.findViewById(R.id.tvName);
-                TextView tvAddress = view.findViewById(R.id.tvAddress);
-                TextView tvPhone = view.findViewById(R.id.tvPhone);
-                TextView tvId = view.findViewById(R.id.tvId);
-
-                Intent intent = new Intent(Home.this, Customer.class);
-
-                intent.putExtra("name", tvName.getText().toString());
-                intent.putExtra("phone", tvPhone.getText().toString());
-                intent.putExtra("address", tvAddress.getText().toString());
-                intent.putExtra("id", tvId.getText().toString());
-
+                Intent intent = new Intent(Home.this, ViewDistribution.class);
+                intent.putExtra("pharmacy", deliveryList.get(position).getTitle());
+                intent.putExtra("cityName", deliveryList.get(position).getSubTitle());
+                intent.putExtra("boxList", (Serializable) deliveryList.get(position).boxList);
                 startActivity(intent);
-            }
-        });
-
-
-
-        //message part
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, Messages.class);
-                startActivity(intent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
     }
 
-    private void setUserName() {
-        databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("userInfo");
-        databaseReference.child(uid).child("name").addValueEventListener(new ValueEventListener() {
+    private void getPaths() {
+        databaseReference.child("driverTask").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                toolbar.setTitle(dataSnapshot.getValue().toString());
+                distributorIdMap = new HashMap<>();
+                randomIdMap = new HashMap<>();
+                int i = 0;
+                for (DataSnapshot deliverySnapShot : dataSnapshot.getChildren()) {
+                    String distributorId = deliverySnapShot.child("distributorId").getValue().toString();
+                    String randomId = deliverySnapShot.child("randomId").getValue().toString();
+                    distributorIdMap.put(i, distributorId);
+                    randomIdMap.put(i, randomId);
+                    i++;
+                }
+                setListView();
             }
 
             @Override
@@ -185,27 +100,101 @@ public class Home extends AppCompatActivity {
             }
         });
     }
-//
-//    private void setProfilePicture() {
-//        StorageReference ref = storageReference.child("userImages/"+uid);
-//        Glide.with(Home.this)
-//        .using(new FirebaseImageLoader())
-//            .load(storageReference)
-//        .into(imageView);
-//    }
+
+    //retrieve data from firebase and set ListView
+    private void setListView() {
+
+        for (int i = 0; i<randomIdMap.size(); i++){
+            databaseReference.child("ongoingDeliveries").child(distributorIdMap.get(i)).child(randomIdMap.get(i)).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    final String pharmacyName = dataSnapshot.child("pharmacyName").getValue().toString();
+                    String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
+                    final List<String> boxList = Collections.singletonList(dataSnapshot.child("boxList").getValue().toString());
+
+                    databaseReference.child("pharmacies").child(pharmacyId).child("pharmacyAddress").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String pharmacyAdress = dataSnapshot.getValue().toString();
+                            String [] splittedAddress = pharmacyAdress.split(",");
+                            String cityName = splittedAddress[splittedAddress.length-1];
+
+                            Work work = new Work(pharmacyName, cityName, boxList);
+
+                            deliveryList.add(work);
+
+                            customListAdapter = new CustomListAdapter(Home.this, R.layout.simplerow, deliveryList);
+                            myListView.setAdapter(customListAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+
+            builder.setMessage("Are you sure?")
+                    .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            logOut();
+                        }
+                    })
+                    .setNegativeButton("Cancel", null);
+
+            AlertDialog alert = builder.create();
+            alert.show();
+            return true;
+        } else if (id == R.id.action_aboutUs) {
+            Intent intent = new Intent(this, AboutUs.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     //this function will handle the logout process
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(com.aslam.co321_project.Driver.Home.this, logIn.class);
+        Intent intent = new Intent(Home.this, logIn.class);
         finish();
         finishAffinity();
         startActivity(intent);
     }
+
     //get parameters from previous activity
     private void getParams() {
-        email = getIntent().getStringExtra("email");
         uid = getIntent().getStringExtra("uid");
     }
-
 }
