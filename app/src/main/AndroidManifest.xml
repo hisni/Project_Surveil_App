@@ -39,7 +39,6 @@
 
         <!-- Driver activities -->
         <activity android:name=".Driver.Messages" />
-        <activity android:name=".Driver.Customer" />
         <activity android:name=".Driver.Home" >
 
         </activity>

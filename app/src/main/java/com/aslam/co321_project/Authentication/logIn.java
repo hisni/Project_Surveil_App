@@ -31,7 +31,7 @@ public class logIn extends AppCompatActivity {
     EditText usernameEditText;
     EditText passwordEditText;
     String uid;
-    String type;
+    public static String type;
     ProgressBar progressBar;
 
     @Override

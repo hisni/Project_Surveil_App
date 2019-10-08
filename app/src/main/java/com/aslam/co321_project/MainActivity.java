@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.Distributor.Home;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                     type = dataSnapshot.child("type").getValue().toString();
-
+                    logIn.type = type;
                     if(type.equals("Driver")){
                         startDriver();
                     } else if (type.equals("Pharmacist")){

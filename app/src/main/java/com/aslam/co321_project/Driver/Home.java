@@ -3,6 +3,8 @@ package com.aslam.co321_project.Driver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,16 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-
 
 
 public class Home extends AppCompatActivity {
-    static String uid;
+    public static String uid;
     DatabaseReference databaseReference;
 
     private ArrayList<Work> deliveryList = new ArrayList<>();
@@ -44,11 +43,30 @@ public class Home extends AppCompatActivity {
     private HashMap<Integer, String> randomIdMap;
     private ListView myListView;
     private CustomListAdapter customListAdapter;
+    private String pharmacyAddress;
+
+    public static Handler h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver__home);
+
+        h = new Handler() {
+
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                switch(msg.what) {
+
+                    case 0:
+                        finish();
+                        break;
+
+                }
+            }
+
+        };
 
         Toolbar toolbar = findViewById(R.id.toolbarDriver);
         setSupportActionBar(toolbar);
@@ -70,12 +88,16 @@ public class Home extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Home.this, ViewDistribution.class);
                 intent.putExtra("pharmacy", deliveryList.get(position).getTitle());
-                intent.putExtra("cityName", deliveryList.get(position).getSubTitle());
-                intent.putExtra("boxList", (Serializable) deliveryList.get(position).boxList);
+                intent.putExtra("pharmacyAddress", pharmacyAddress);
+                intent.putExtra("pharmacyId", deliveryList.get(position).getPharmacyId());
+                intent.putExtra("distributorId", deliveryList.get(position).getDistributorId());
+                intent.putExtra("randomId", deliveryList.get(position).getRandomId());
+                intent.putExtra("driverId", Home.uid);
                 startActivity(intent);
             }
         });
     }
+
 
     private void getPaths() {
         databaseReference.child("driverTask").child(uid).addValueEventListener(new ValueEventListener() {
@@ -105,22 +127,24 @@ public class Home extends AppCompatActivity {
     private void setListView() {
 
         for (int i = 0; i<randomIdMap.size(); i++){
-            databaseReference.child("ongoingDeliveries").child(distributorIdMap.get(i)).child(randomIdMap.get(i)).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            final String distributorId = distributorIdMap.get(i);
+            final String randomId = randomIdMap.get(i);
+            try{
+                databaseReference.child("ongoingDeliveries").child(distributorId).child(randomId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    final String pharmacyName = dataSnapshot.child("pharmacyName").getValue().toString();
-                    String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
-                    final List<String> boxList = Collections.singletonList(dataSnapshot.child("boxList").getValue().toString());
+                        final String pharmacyName = dataSnapshot.child("pharmacyName").getValue().toString();
+                        final String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
 
                     databaseReference.child("pharmacies").child(pharmacyId).child("pharmacyAddress").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String pharmacyAdress = dataSnapshot.getValue().toString();
-                            String [] splittedAddress = pharmacyAdress.split(",");
+                            pharmacyAddress = dataSnapshot.getValue().toString();
+                            String [] splittedAddress = pharmacyAddress.split(",");
                             String cityName = splittedAddress[splittedAddress.length-1];
 
-                            Work work = new Work(pharmacyName, cityName, boxList);
+                            Work work = new Work(pharmacyName, cityName, distributorId, randomId, pharmacyId);
 
                             deliveryList.add(work);
 
@@ -134,13 +158,16 @@ public class Home extends AppCompatActivity {
                         }
                     });
 
-                }
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            } catch (Exception e){
+                Toast.makeText(Home.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -186,11 +213,40 @@ public class Home extends AppCompatActivity {
 
     //this function will handle the logout process
     private void logOut() {
+        //logout
         FirebaseAuth.getInstance().signOut();
+
+        //clear the cache
+        try{
+            File dir = Home.this.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //go to login activity
         Intent intent = new Intent(Home.this, logIn.class);
         finish();
         finishAffinity();
         startActivity(intent);
+    }
+
+    //perform cache clear
+    private boolean deleteDir(File dir) {
+        if(dir != null && dir.isDirectory()){
+            String [] children = dir.list();
+
+            for(String s: children){
+                boolean success = deleteDir(new File(dir, s));
+                if(!success){
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if (dir != null && dir.isFile()){
+            return dir.delete();
+        }
+        return false;
     }
 
     //get parameters from previous activity

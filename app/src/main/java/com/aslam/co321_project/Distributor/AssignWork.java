@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aslam.co321_project.R;
+import com.aslam.co321_project.TaskClass;
 import com.aslam.co321_project.Work;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -201,8 +202,9 @@ public class AssignWork extends Fragment {
                 });
 
         TaskClass taskClass = new TaskClass(Home.uid, randomId);
-        databaseReference.child("driverTask").child(selectedDriverId).child(UUID.randomUUID().toString()).setValue(taskClass);
-        databaseReference.child("pharmacyTask").child(selectedPharmacyId).child(UUID.randomUUID().toString()).setValue(taskClass);
+        databaseReference.child("driverTask").child(selectedDriverId).child(randomId).setValue(taskClass);
+        databaseReference.child("pharmacyTask").child(selectedPharmacyId).child(randomId).setValue(taskClass);
+        databaseReference.child("distributorTask").child(Home.uid).child(randomId).child("randomId").setValue(randomId);
     }
 
 

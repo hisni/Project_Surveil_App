@@ -1,6 +1,6 @@
-package com.aslam.co321_project.Distributor;
+package com.aslam.co321_project;
 
-class TaskClass {
+public class TaskClass {
     private String distributorId;
     private String randomId;
 
