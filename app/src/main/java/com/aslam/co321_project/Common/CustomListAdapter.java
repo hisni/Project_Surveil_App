@@ -19,13 +19,13 @@ class ViewHolder{
     TextView driver;
 }
 
-public class CustomListAdapter extends ArrayAdapter<Work> {
+public class CustomListAdapter extends ArrayAdapter<DeliverDetails> {
 
     private Context mContext;
     private int mResource;
     private int lastPosition = -1;
 
-    public CustomListAdapter(Context context, int resource, ArrayList<Work> objects) {
+    public CustomListAdapter(Context context, int resource, ArrayList<DeliverDetails> objects) {
         super(context, resource, objects);
 
         mContext = context;

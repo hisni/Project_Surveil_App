@@ -15,7 +15,7 @@ import com.aslam.co321_project.Common.CustomListAdapter;
 import com.aslam.co321_project.R;
 
 import com.aslam.co321_project.Common.ViewDistribution;
-import com.aslam.co321_project.Common.Work;
+import com.aslam.co321_project.Common.DeliverDetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -33,7 +33,7 @@ public class FragmentDistributorHome extends Fragment {
     private View view;
     private ListView myListView;
     private CustomListAdapter customListAdapter;
-    private ArrayList<Work> deliveryList = new ArrayList<>();
+    private ArrayList<DeliverDetails> deliveryList = new ArrayList<>();
     private HashMap<Integer, String> randomIdMap;
 
     public FragmentDistributorHome() {
@@ -73,19 +73,18 @@ public class FragmentDistributorHome extends Fragment {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-//        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-//                final String pharmacyId = deliveryList.get(position).getRightId();
-//                Intent intent = new Intent(getContext(), ViewDistribution.class);
-//                intent.putExtra("nameToDisplay", deliveryList.get(position).getTitle());
-//                intent.putExtra("pharmacyId", pharmacyId);
-//                intent.putExtra("distributorId", deliveryList.get(position).getLeftId());
-//                intent.putExtra("randomId", deliveryList.get(position).getRandomId());
-//                intent.putExtra("driverId", deliveryList.get(position).getDriverId());
-//                startActivity(intent);
-//            }
-//        });
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                Intent intent = new Intent(getContext(), ViewDistribution.class);
+                intent.putExtra("nameToDisplay", deliveryList.get(position).getTitle());
+                intent.putExtra("pharmacyId", deliveryList.get(position).getRightId());
+                intent.putExtra("distributorId", MainActivity.uid);
+                intent.putExtra("randomId", deliveryList.get(position).getRandomId());
+                intent.putExtra("driverId", deliveryList.get(position).getLeftId());
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -120,16 +119,15 @@ public class FragmentDistributorHome extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     final String pharmacyName = dataSnapshot.child("pharmacyName").getValue().toString();
-//                    final String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
-                    Toast.makeText(getContext(), pharmacyName, Toast.LENGTH_SHORT).show();
-//                    String driverName = dataSnapshot.child("driverName").getValue().toString();
-//                    String driverId = dataSnapshot.child("driverId").getValue().toString();
-////                    Work work = new Work(distributorId, pharmacyId, pharmacyName, driverName, driverId, randomId);
-//
-//                    deliveryList.add(work);
-//
-//                    customListAdapter = new CustomListAdapter(getContext(), R.layout.simplerow, deliveryList);
-//                    myListView.setAdapter(customListAdapter);
+                    final String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
+                    String driverName = dataSnapshot.child("driverName").getValue().toString();
+                    String driverId = dataSnapshot.child("driverId").getValue().toString();
+                    DeliverDetails deliverDetails = new DeliverDetails(pharmacyName, driverName, driverId, pharmacyId, randomId);
+
+                    deliveryList.add(deliverDetails);
+
+                    customListAdapter = new CustomListAdapter(getContext(), R.layout.simplerow, deliveryList);
+                    myListView.setAdapter(customListAdapter);
                 }
 
                 @Override

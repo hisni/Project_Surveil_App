@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.aslam.co321_project.R;
 import com.aslam.co321_project.Common.TaskClass;
-import com.aslam.co321_project.Common.Work;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -184,10 +183,10 @@ public class FragmentDistributorAssignWork extends Fragment {
 
         String selectedDriverName = driverSpinner.getSelectedItem().toString();
         String selectedPharmacyName = pharmacySpinner.getSelectedItem().toString();
-        Work work = new Work(selectedDriverId, selectedPharmacyId, selectedDriverName, selectedPharmacyName, splittedBoxList);
+        UploadDeliveryDetails uploadDeliveryDetails = new UploadDeliveryDetails(selectedDriverName, selectedPharmacyName, selectedPharmacyId, selectedDriverId, splittedBoxList);
 
         final String randomId = UUID.randomUUID().toString();
-        databaseReference.child("ongoingDeliveries/"+ MainActivity.uid+"/").child(randomId).setValue(work)
+        databaseReference.child("ongoingDeliveries/"+ MainActivity.uid+"/").child(randomId).setValue(uploadDeliveryDetails)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

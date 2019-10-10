@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.aslam.co321_project.Common.CustomListAdapter;
 import com.aslam.co321_project.R;
 import com.aslam.co321_project.Common.ViewDistribution;
-import com.aslam.co321_project.Common.Work;
+import com.aslam.co321_project.Common.DeliverDetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +32,7 @@ public class FragmentPharmacistHome extends Fragment {
 
     private DatabaseReference databaseReference;
 
-    private ArrayList<Work> deliveryList = new ArrayList<>();
+    private ArrayList<DeliverDetails> deliveryList = new ArrayList<>();
     private HashMap<Integer, String> distributorIdMap;
     private HashMap<Integer, String> randomIdMap;
 
@@ -88,9 +88,9 @@ public class FragmentPharmacistHome extends Fragment {
                             String driverName = dataSnapshot.child("driverName").getValue().toString();
                             driverId = dataSnapshot.child("driverId").getValue().toString();
 
-                            Work work = new Work(distributorName, driverName, distributorId, driverId, randomId);
+                            DeliverDetails deliverDetails = new DeliverDetails(distributorName, driverName, distributorId, driverId, randomId);
 
-                            deliveryList.add(work);
+                            deliveryList.add(deliverDetails);
 
                             customListAdapter = new CustomListAdapter(getContext(), R.layout.simplerow, deliveryList);
                             myListView.setAdapter(customListAdapter);
@@ -134,10 +134,10 @@ public class FragmentPharmacistHome extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), ViewDistribution.class);
                 intent.putExtra("nameToDisplay", deliveryList.get(position).getTitle());
-                intent.putExtra("pharmacyId", deliveryList.get(position).getRightId());
+                intent.putExtra("pharmacyId", MainActivity.uid);
                 intent.putExtra("distributorId", deliveryList.get(position).getLeftId());
                 intent.putExtra("randomId", deliveryList.get(position).getRandomId());
-                intent.putExtra("driverId", driverId);
+                intent.putExtra("driverId", deliveryList.get(position).getRightId());
                 startActivity(intent);
             }
         });

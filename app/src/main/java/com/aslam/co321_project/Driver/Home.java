@@ -21,7 +21,7 @@ import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.Common.CustomListAdapter;
 import com.aslam.co321_project.R;
 import com.aslam.co321_project.Common.ViewDistribution;
-import com.aslam.co321_project.Common.Work;
+import com.aslam.co321_project.Common.DeliverDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +38,7 @@ public class Home extends AppCompatActivity {
     public static String uid;
     DatabaseReference databaseReference;
 
-    private ArrayList<Work> deliveryList = new ArrayList<>();
+    private ArrayList<DeliverDetails> deliveryList = new ArrayList<>();
     private HashMap<Integer, String> distributorIdMap;
     private HashMap<Integer, String> randomIdMap;
     private ListView myListView;
@@ -143,9 +143,9 @@ public class Home extends AppCompatActivity {
                                 String [] splittedAddress = pharmacyAddress.split(",");
                                 String cityName = splittedAddress[splittedAddress.length-1];
 
-                                Work work = new Work(pharmacyName, cityName, distributorId, pharmacyId, randomId);
+                                DeliverDetails deliverDetails = new DeliverDetails(pharmacyName, cityName, distributorId, pharmacyId, randomId);
 
-                                deliveryList.add(work);
+                                deliveryList.add(deliverDetails);
 
                                 customListAdapter = new CustomListAdapter(Home.this, R.layout.simplerow, deliveryList);
                                 myListView.setAdapter(customListAdapter);
