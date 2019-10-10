@@ -63,6 +63,8 @@ public class ViewDistribution extends AppCompatActivity {
 
         if (logIn.type.equals("Driver")){
             handleSpecialDriverFunctions(btnDelivered, btnCallDriver);
+        } else if (logIn.type.equals("Pharmacist")){
+
         }
 
         btnCallDriver.setOnClickListener(new View.OnClickListener() {

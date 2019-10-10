@@ -20,5 +20,5 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <include layout="@layout/content_driver__home"/>
+    <include layout="@layout/content_common_list_view"/>
 </LinearLayout>

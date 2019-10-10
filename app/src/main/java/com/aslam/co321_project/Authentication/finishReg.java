@@ -59,7 +59,7 @@ public class finishReg extends AppCompatActivity {
 
     //start app for pharmacist
     private void startPharmacist() {
-        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Pharmacist.Home.class);
+        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Pharmacist.MainActivity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("email", email);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

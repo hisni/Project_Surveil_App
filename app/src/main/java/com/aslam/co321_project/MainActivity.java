@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     //start app for pharmacist
     private void startPharmacist() {
-        Intent intent = new Intent(MainActivity.this, com.aslam.co321_project.Pharmacist.Home.class);
+        Intent intent = new Intent(MainActivity.this, com.aslam.co321_project.Pharmacist.MainActivity.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

@@ -137,26 +137,26 @@ public class Home extends AppCompatActivity {
                         final String pharmacyName = dataSnapshot.child("pharmacyName").getValue().toString();
                         final String pharmacyId = dataSnapshot.child("pharmacyId").getValue().toString();
 
-                    databaseReference.child("pharmacies").child(pharmacyId).child("pharmacyAddress").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            pharmacyAddress = dataSnapshot.getValue().toString();
-                            String [] splittedAddress = pharmacyAddress.split(",");
-                            String cityName = splittedAddress[splittedAddress.length-1];
+                        databaseReference.child("pharmacies").child(pharmacyId).child("pharmacyAddress").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                pharmacyAddress = dataSnapshot.getValue().toString();
+                                String [] splittedAddress = pharmacyAddress.split(",");
+                                String cityName = splittedAddress[splittedAddress.length-1];
 
-                            Work work = new Work(pharmacyName, cityName, distributorId, randomId, pharmacyId);
+                                Work work = new Work(pharmacyName, cityName, distributorId, randomId, pharmacyId);
 
-                            deliveryList.add(work);
+                                deliveryList.add(work);
 
-                            customListAdapter = new CustomListAdapter(Home.this, R.layout.simplerow, deliveryList);
-                            myListView.setAdapter(customListAdapter);
-                        }
+                                customListAdapter = new CustomListAdapter(Home.this, R.layout.simplerow, deliveryList);
+                                myListView.setAdapter(customListAdapter);
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
 
                     }
 
@@ -182,7 +182,7 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the MainActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

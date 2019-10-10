@@ -124,7 +124,7 @@ public class logIn extends AppCompatActivity {
         }
 
         if (password.length() < 6) {
-            passwordEditText.setError("Minimum lenght of password should be 6");
+            passwordEditText.setError("Minimum length of password should be 6");
             passwordEditText.requestFocus();
             return false;
         }
@@ -178,7 +178,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for pharmacist
     private void startPharmacist() {
-        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Pharmacist.Home.class);
+        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Pharmacist.MainActivity.class);
         intent.putExtra("uid", uid);
 //        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
