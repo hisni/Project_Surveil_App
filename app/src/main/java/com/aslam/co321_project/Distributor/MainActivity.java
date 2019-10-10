@@ -1,27 +1,32 @@
-package com.aslam.co321_project.Pharmacist;
+package com.aslam.co321_project.Distributor;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.aslam.co321_project.Common.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
 
+//distributor
+public class MainActivity extends AppCompatActivity {
     static String uid;
+    static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -29,15 +34,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home_pharm:
-                    fragment = new FragmentPharmacistHome();
+                case R.id.navigation_home_dist:
+                    fragment = new FragmentDistributorHome();
                     break;
-                case R.id.navigation_past_phram:
-                    fragment = new FragmentPharmacistPast();
+                case R.id.navigation_add_dist:
+                    fragment = new FragmentDistributorAssignWork();
                     break;
-                case R.id.navigation_my_account_pharm:
-                    fragment = new FragmentPharmacistMyAccount();
+                case R.id.navigation_my_account_dist:
+                    fragment = new FragmentDistributorMyProfile();
                     break;
+                case R.id.navigation_past_dist:
+                    fragment = new FragmentDistributorPast();
             }
             return loadFragment(fragment);
         }
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(com.aslam.co321_project.Distributor.MainActivity.this);
 
             builder.setMessage("Are you sure?")
                     .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
@@ -136,17 +143,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pharmacy_main);
+        setContentView(R.layout.activity_distributor_main);
 
-        Toolbar toolbar = findViewById(R.id.pharmacistToolbar);
+        Toolbar toolbar = findViewById(R.id.distributorToolbar);
         setSupportActionBar(toolbar);
 
         getParams();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        BottomNavigationView navView = findViewById(R.id.nav_view_dist);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        loadFragment(new FragmentPharmacistHome());
+        loadFragment(new FragmentDistributorHome());
     }
 
 }

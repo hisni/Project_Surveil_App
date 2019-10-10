@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aslam.co321_project.Distributor.Home;
+import com.aslam.co321_project.Distributor.MainActivity;
 import com.aslam.co321_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +37,7 @@ public class logIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_authentication_log_in);
 
         usernameEditText = findViewById(R.id.editTextEmail);
         passwordEditText = findViewById(R.id.editTextPassword);
@@ -188,7 +188,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for distributor
     private void startDistributor() {
-        Intent intent = new Intent(logIn.this, Home.class);
+        Intent intent = new Intent(logIn.this, MainActivity.class);
         intent.putExtra("uid", uid);
 //        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

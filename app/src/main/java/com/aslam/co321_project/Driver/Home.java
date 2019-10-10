@@ -16,12 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.aslam.co321_project.AboutUs;
+import com.aslam.co321_project.Common.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
-import com.aslam.co321_project.CustomListAdapter;
+import com.aslam.co321_project.Common.CustomListAdapter;
 import com.aslam.co321_project.R;
-import com.aslam.co321_project.ViewDistribution;
-import com.aslam.co321_project.Work;
+import com.aslam.co321_project.Common.ViewDistribution;
+import com.aslam.co321_project.Common.Work;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,7 +71,7 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarDriver);
         setSupportActionBar(toolbar);
 
-        myListView = findViewById(R.id.lvManageDistDriver);
+        myListView = findViewById(R.id.lvCommonListView);
         getParams();
 
         try {
@@ -87,10 +87,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Home.this, ViewDistribution.class);
-                intent.putExtra("pharmacy", deliveryList.get(position).getTitle());
-                intent.putExtra("pharmacyAddress", pharmacyAddress);
-                intent.putExtra("pharmacyId", deliveryList.get(position).getPharmacyId());
-                intent.putExtra("distributorId", deliveryList.get(position).getDistributorId());
+                intent.putExtra("nameToDisplay", deliveryList.get(position).getTitle());
+                intent.putExtra("pharmacyId", deliveryList.get(position).getRightId());
+                intent.putExtra("distributorId", deliveryList.get(position).getLeftId());
                 intent.putExtra("randomId", deliveryList.get(position).getRandomId());
                 intent.putExtra("driverId", Home.uid);
                 startActivity(intent);
@@ -144,7 +143,7 @@ public class Home extends AppCompatActivity {
                                 String [] splittedAddress = pharmacyAddress.split(",");
                                 String cityName = splittedAddress[splittedAddress.length-1];
 
-                                Work work = new Work(pharmacyName, cityName, distributorId, randomId, pharmacyId);
+                                Work work = new Work(pharmacyName, cityName, distributorId, pharmacyId, randomId);
 
                                 deliveryList.add(work);
 

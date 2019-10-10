@@ -31,7 +31,7 @@ public class PharmacyDet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pharmacy_det);
+        setContentView(R.layout.activity_authentication_pharmacy_det);
 
         getParams();
 

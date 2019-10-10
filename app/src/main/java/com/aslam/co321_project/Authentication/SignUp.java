@@ -32,7 +32,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_authentication_signup);
 
         etMail = findViewById(R.id.editTextEmailReg);
         etPw = findViewById(R.id.editTextPasswordReg);

@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aslam.co321_project.R;
-import com.aslam.co321_project.User;
+import com.aslam.co321_project.Common.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,7 +52,7 @@ public class AddAPhoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addaphoto);
+        setContentView(R.layout.activity_authentication_addaphoto);
 
         getParams();
 
