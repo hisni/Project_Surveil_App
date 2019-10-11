@@ -1,4 +1,4 @@
-package com.aslam.co321_project.Distributor;
+package com.aslam.co321_project.Driver;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.aslam.co321_project.Common.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
 
 
-//distributor
 public class MainActivity extends AppCompatActivity {
     public static String uid;
     static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(com.aslam.co321_project.Distributor.MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
             builder.setMessage("Are you sure?")
                     .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
@@ -109,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     /******************* bottom navigation bar handlers *************/
+    private boolean loadFragment(Fragment fragment) {
+        if(fragment!=null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.driver_fragment_container, fragment).commit();
+            return true;
+        }
+        return false;
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -116,31 +123,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home_dist:
-                    fragment = new FragmentDistributorHome();
+                case R.id.navigation_home_pharm_driv:
+                    fragment = new FragmentDriverHome();
                     break;
-                case R.id.navigation_add_dist:
-                    fragment = new FragmentDistributorAssignWork();
+                case R.id.navigation_past_pharm_driv:
+                    fragment = new FragmentDriverPast();
                     break;
-                case R.id.navigation_my_account_dist:
-                    fragment = new FragmentDistributorMyProfile();
+                case R.id.navigation_my_account_pharm_driv:
+                    fragment = new FragmentDriverMyAccount();
                     break;
-                case R.id.navigation_past_dist:
-                    fragment = new FragmentDistributorPast();
             }
             return loadFragment(fragment);
         }
     };
 
-    private boolean loadFragment(Fragment fragment) {
-        if(fragment!=null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.distributor_fragment_container, fragment).commit();
-            return true;
-        }
-        return false;
-    }
+    /*****************************************************************/
 
-    /***************************************************************/
 
 
     //get parameters from previous activity
@@ -151,16 +149,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_distributor_main);
+        setContentView(R.layout.activity_driver_main);
 
-        Toolbar toolbar = findViewById(R.id.distributorToolbar);
+        Toolbar toolbar = findViewById(R.id.driverToolbar);
         setSupportActionBar(toolbar);
 
         getParams();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view_dist);
+        BottomNavigationView navView = findViewById(R.id.nav_view_driver);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        loadFragment(new FragmentDistributorHome());
+        loadFragment(new FragmentDriverHome());
     }
 }

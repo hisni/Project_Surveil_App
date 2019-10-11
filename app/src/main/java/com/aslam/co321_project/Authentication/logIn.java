@@ -168,7 +168,7 @@ public class logIn extends AppCompatActivity {
 
     //start app for driver
     private void startDriver() {
-        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Driver.Home.class);
+        Intent intent = new Intent(logIn.this, com.aslam.co321_project.Driver.MainActivity.class);
         intent.putExtra("uid", uid);
 //        intent.putExtra("email", usernameEditText.getText().toString());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

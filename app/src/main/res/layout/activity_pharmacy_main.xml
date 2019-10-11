@@ -40,6 +40,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:itemIconTint="@drawable/customized_tab_icon"
         app:itemTextColor="@drawable/customized_tab_icon"
-        app:menu="@menu/pharmacist_bottom_nav_menu" />
+        app:menu="@menu/pharmacist_driver_bottom_nav_menu" />
 
 </android.support.constraint.ConstraintLayout>

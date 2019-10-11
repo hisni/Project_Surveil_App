@@ -25,12 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.aslam.co321_project.Pharmacist.MainActivity.databaseReference;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentPharmacistHome extends Fragment {
-
-    private DatabaseReference databaseReference;
 
     private ArrayList<DeliverDetails> deliveryList = new ArrayList<>();
     private HashMap<Integer, String> distributorIdMap;

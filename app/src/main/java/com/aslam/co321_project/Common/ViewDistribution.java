@@ -17,7 +17,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.aslam.co321_project.Authentication.logIn;
-import com.aslam.co321_project.Driver.Home;
+import com.aslam.co321_project.Driver.MainActivity;
 import com.aslam.co321_project.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,8 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
-
-import static com.aslam.co321_project.Driver.Home.h;
 
 public class ViewDistribution extends AppCompatActivity {
 
@@ -287,7 +285,7 @@ public class ViewDistribution extends AppCompatActivity {
     //method to execute when delivered button is clicked
     private void handleDelivered() {
         TaskClass taskClass = new TaskClass(distributorId, randomId);
-        databaseReference.child("deliveredSupplies").child("driverTask").child(Home.uid).child(randomId).setValue(taskClass);
+        databaseReference.child("deliveredSupplies").child("driverTask").child(MainActivity.uid).child(randomId).setValue(taskClass);
         databaseReference.child("deliveredSupplies").child("pharmacyTask").child(pharmacyId).child(randomId).setValue(taskClass);
         databaseReference.child("deliveredSupplies").child("distributorTask").child(distributorId).child("randomId").setValue(randomId);
 
@@ -299,14 +297,13 @@ public class ViewDistribution extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        databaseReference.child("driverTask").child(Home.uid).child(randomId).removeValue()
+                                        databaseReference.child("driverTask").child(MainActivity.uid).child(randomId).removeValue()
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         Toast.makeText(ViewDistribution.this, "Success", Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent(ViewDistribution.this, Home.class);
-                                                        intent.putExtra("uid", Home.uid);
-                                                        h.sendEmptyMessage(0);
+                                                        Intent intent = new Intent(ViewDistribution.this, MainActivity.class);
+                                                        intent.putExtra("uid", MainActivity.uid);
                                                         finish();
                                                         startActivity(intent);
                                                     }

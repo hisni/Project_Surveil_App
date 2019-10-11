@@ -49,7 +49,7 @@ public class finishReg extends AppCompatActivity {
 
     //start app for driver
     private void startDriver() {
-        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Driver.Home.class);
+        Intent intent = new Intent(finishReg.this, com.aslam.co321_project.Driver.MainActivity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("email", email);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

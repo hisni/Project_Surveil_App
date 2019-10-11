@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home_pharm"
+        android:id="@+id/navigation_home_pharm_driv"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_past_phram"
+        android:id="@+id/navigation_past_pharm_driv"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/past" />
 
     <item
-        android:id="@+id/navigation_my_account_pharm"
+        android:id="@+id/navigation_my_account_pharm_driv"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="@string/my_profile" />
 

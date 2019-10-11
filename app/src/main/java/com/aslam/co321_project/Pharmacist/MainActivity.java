@@ -16,41 +16,17 @@ import com.aslam.co321_project.Common.AboutUs;
 import com.aslam.co321_project.Authentication.logIn;
 import com.aslam.co321_project.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
     static String uid;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Fragment fragment;
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home_pharm:
-                    fragment = new FragmentPharmacistHome();
-                    break;
-                case R.id.navigation_past_phram:
-                    fragment = new FragmentPharmacistPast();
-                    break;
-                case R.id.navigation_my_account_pharm:
-                    fragment = new FragmentPharmacistMyAccount();
-                    break;
-            }
-            return loadFragment(fragment);
-        }
-    };
-
-    private boolean loadFragment(Fragment fragment) {
-        if(fragment!=null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.pharmacy_fragment_container, fragment).commit();
-            return true;
-        }
-        return false;
-    }
-
+    /****************  options menu handlers  **********************/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -127,6 +103,43 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /*****************************************************************/
+
+
+    /******************* bottom navigation bar handlers *************/
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        Fragment fragment;
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home_pharm_driv:
+                    fragment = new FragmentPharmacistHome();
+                    break;
+                case R.id.navigation_past_pharm_driv:
+                    fragment = new FragmentPharmacistPast();
+                    break;
+                case R.id.navigation_my_account_pharm_driv:
+                    fragment = new FragmentPharmacistMyAccount();
+                    break;
+            }
+            return loadFragment(fragment);
+        }
+    };
+
+    private boolean loadFragment(Fragment fragment) {
+        if(fragment!=null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.pharmacy_fragment_container, fragment).commit();
+            return true;
+        }
+        return false;
+    }
+
+    /****************************************************************/
+
 
     //get parameters from previous activity
     private void getParams() {
