@@ -157,7 +157,7 @@ public class ViewDistribution extends AppCompatActivity {
 
             if(logIn.type.equals("Driver")){
                 getDistributorPhone();
-                handleDeliverButton();
+                if(MainActivity.homeSelected) handleDeliverButton();
             } else {
                 getDriverPhone();
             }
@@ -287,7 +287,7 @@ public class ViewDistribution extends AppCompatActivity {
         TaskClass taskClass = new TaskClass(distributorId, randomId);
         databaseReference.child("deliveredSupplies").child("driverTask").child(MainActivity.uid).child(randomId).setValue(taskClass);
         databaseReference.child("deliveredSupplies").child("pharmacyTask").child(pharmacyId).child(randomId).setValue(taskClass);
-        databaseReference.child("deliveredSupplies").child("distributorTask").child(distributorId).child("randomId").setValue(randomId);
+        databaseReference.child("deliveredSupplies").child("distributorTask").child(distributorId).child(randomId).child("randomId").setValue(randomId);
 
         databaseReference.child("pharmacyTask").child(pharmacyId).child(randomId).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

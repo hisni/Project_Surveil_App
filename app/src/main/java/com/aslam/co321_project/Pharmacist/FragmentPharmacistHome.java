@@ -18,8 +18,6 @@ import com.aslam.co321_project.Common.ViewDistribution;
 import com.aslam.co321_project.Common.DeliverDetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -121,8 +119,6 @@ public class FragmentPharmacistHome extends Fragment {
         myListView = view.findViewById(R.id.lvCommonListView);
 
         try {
-            databaseReference = FirebaseDatabase.getInstance().getReference();
-
             //setlistview
             getPaths();
         } catch (Exception e){

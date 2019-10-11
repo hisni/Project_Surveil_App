@@ -25,6 +25,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     public static String uid;
     static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    public static boolean homeSelected = true;
 
     /****************  options menu handlers  **********************/
     @Override
@@ -124,9 +125,11 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home_pharm_driv:
+                    homeSelected = true;
                     fragment = new FragmentDriverHome();
                     break;
                 case R.id.navigation_past_pharm_driv:
+                    homeSelected = false;
                     fragment = new FragmentDriverPast();
                     break;
                 case R.id.navigation_my_account_pharm_driv:
