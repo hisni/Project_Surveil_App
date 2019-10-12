@@ -195,7 +195,7 @@ public class AddAPhoto extends AppCompatActivity {
     private void ulpoadOtherInfo() {
         //user information
         databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("userInfo");
-        User user = new User(usrName, phone, type);
+        User user = new User(usrName, phone, type, "");
         databaseReferenceUserInfo.child(uid).setValue(user);
 
         //user type

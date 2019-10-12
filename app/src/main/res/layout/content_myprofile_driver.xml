@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/fragment_distributor_my_profile">
+    tools:showIn="@layout/fragment_driver_my_account">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_margin="20dp">
 
         <TextView
             style="@style/headerText"
@@ -33,9 +31,23 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="developer"
+                android:id="@+id/info_name_driver"
                 android:layout_toRightOf="@id/nameImageView"
                 style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_name_driver"
+                android:layout_toRightOf="@id/nameImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/info_edit_name_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 
@@ -52,9 +64,23 @@
                 style="@style/profileDetailsTextMain"/>
 
             <TextView
-                android:text="+91-8129999999"
+                android:id="@+id/info_mobile_driver"
                 android:layout_toRightOf="@id/mobileImageView"
                 style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_mobile_driver"
+                android:layout_toRightOf="@id/mobileImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/info_edit_mobile_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 
@@ -71,7 +97,7 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="developer@appsnipp.com"
+                android:id="@+id/info_email_driver"
                 android:layout_toRightOf="@id/emailImageView"
                 style="@style/profileDetailsMiniText" />
 
@@ -90,32 +116,37 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="Avenue 2nd Street NW SY."
+                android:id="@+id/info_address_driver"
                 android:layout_toRightOf="@id/addressImageView"
                 style="@style/profileDetailsMiniText" />
 
-        </RelativeLayout>
-
-        <View style="@style/proifleDetailsView" />
-        <RelativeLayout style="@style/profileDetailsLayout">
-            <ImageView
-                android:id="@+id/dobImageView"
-                android:src="@drawable/ic_dob"
-                style="@style/profileDetailsImage" />
-
-            <TextView
-                android:text="D.O.B"
-                android:layout_toRightOf="@id/dobImageView"
-                style="@style/profileDetailsTextMain" />
-
-            <TextView
-                android:text="12-05-1990"
-                android:layout_toRightOf="@id/dobImageView"
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_address_driver"
+                android:layout_toRightOf="@id/addressImageView"
                 style="@style/profileDetailsMiniText" />
 
+            <ImageButton
+                android:id="@+id/info_edit_address_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
         <View style="@style/proifleDetailsView" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=" update "
+            android:textAllCaps="false"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/profilePrimaryDark"/>
 
     </LinearLayout>
 

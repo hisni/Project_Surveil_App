@@ -49,4 +49,9 @@
     <string name="past">Past</string>
     <string name="my_profile">My Profile</string>
     <string name="title_activity_main">MainActivity</string>
+
+
+    <!--tested-->
+    <string name="sample_user_name"> user name </string>
+    <string name="sample_email"> user@email.com </string>
 </resources>

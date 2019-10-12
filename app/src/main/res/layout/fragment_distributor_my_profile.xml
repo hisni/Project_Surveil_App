@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:layout_marginBottom="56dp"
     tools:context=".Distributor.FragmentDistributorMyProfile"
     android:background="@color/profileBackground">
 
@@ -20,9 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/profilePrimaryDark"
+            app:contentScrim="@color/profileBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/TransparentText">
@@ -42,16 +41,18 @@
                     android:src="@drawable/profile_round" />
 
                 <TextView
+                    android:id="@+id/profile_username_distributor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\@appsnippuser"
+                    android:text="@string/sample_user_name"
                     android:textSize="28dp"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/profile_email_distributor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="developer@appsnipp.com"
+                    android:text="category: distributor"
                     android:textSize="12dp"
                     android:textStyle="bold"/>
 
@@ -62,31 +63,15 @@
                     android:layout_gravity="bottom"
                     android:layout_marginTop="20dp"
                     android:background="@color/profileBackground">
-
-                    <View
-                        android:layout_alignParentTop="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/profile_bk"/>
-
-                    <TextView
-                        android:text="Back to\nHome"
-                        style="@style/profileStyledBackButton" />
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_myprofile" />
+    <include layout="@layout/content_myprofile_distributor" />
 
 
 </android.support.design.widget.CoordinatorLayout>
