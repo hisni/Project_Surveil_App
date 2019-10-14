@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Common.ViewDistribution"
+    android:orientation="vertical">
+
+    <android.widget.Toolbar
+        android:id="@+id/toolbarBoxStatus"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/blueLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/lvViewDistribution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        />
+
+    <Button
+        android:id="@+id/btnDelivered"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delivered"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:backgroundTint="@color/blueLogo"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@drawable/layout_bg"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <Button
+            android:drawableLeft="@drawable/ic_call_black_24dp"
+            android:id="@+id/buttonLeftCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:text="  driver "
+            android:textStyle="normal"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/buttonRightCall"
+            android:drawableLeft="@drawable/ic_call_black_24dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:text="  pharmacy"
+            android:textStyle="normal"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/tvTransInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="normal"
+        android:layout_marginBottom="10dp"
+        />
+
+
+
+</LinearLayout>

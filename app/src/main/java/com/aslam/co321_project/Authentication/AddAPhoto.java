@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aslam.co321_project.R;
-import com.aslam.co321_project.User;
+import com.aslam.co321_project.Common.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,7 +52,7 @@ public class AddAPhoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addaphoto);
+        setContentView(R.layout.activity_authentication_addaphoto);
 
         getParams();
 
@@ -195,13 +195,13 @@ public class AddAPhoto extends AppCompatActivity {
     private void ulpoadOtherInfo() {
         //user information
         databaseReferenceUserInfo = FirebaseDatabase.getInstance().getReference("userInfo");
-        User user = new User(usrName, phone, type);
+        User user = new User(usrName, phone, type, "");
         databaseReferenceUserInfo.child(uid).setValue(user);
 
         //user type
         if(type.equals("Driver")){
             databaseReferenceType = FirebaseDatabase.getInstance().getReference("drivers");
-            databaseReferenceType.child(uid).setValue(uid);
+            databaseReferenceType.child(uid).child("uid").setValue(uid);
             finishActivity();
         } else if (type.equals("Pharmacist")){
             pharmReg();

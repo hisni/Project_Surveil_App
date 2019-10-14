@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/fragment_distributor_my_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+            style="@style/headerText"
+            android:text="Account Info"
+            android:layout_marginBottom="20dp"/>
+
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/nameImageView"
+                android:src="@drawable/ic_name"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:text="Name"
+                android:layout_toRightOf="@id/nameImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/info_name_distributor"
+                android:layout_toRightOf="@id/nameImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_name_distributor"
+                android:layout_toRightOf="@id/nameImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/info_edit_name_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/mobileImageView"
+                android:src="@drawable/ic_mobile"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Mobile"
+                android:layout_toRightOf="@id/mobileImageView"
+                style="@style/profileDetailsTextMain"/>
+
+            <TextView
+                android:id="@+id/info_mobile_distributor"
+                android:layout_toRightOf="@id/mobileImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_mobile_distributor"
+                android:layout_toRightOf="@id/mobileImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/info_edit_mobile_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/emailImageView"
+                android:src="@drawable/ic_email"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Email"
+                android:layout_toRightOf="@id/emailImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/info_email_distributor"
+                android:layout_toRightOf="@id/emailImageView"
+                style="@style/profileDetailsMiniText" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/addressImageView"
+                android:src="@drawable/ic_address"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Address"
+                android:layout_toRightOf="@id/addressImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/info_address_distributor"
+                android:layout_toRightOf="@id/addressImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_address_distributor"
+                android:layout_toRightOf="@id/addressImageView"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/info_edit_address_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+
+        <TextView
+            android:layout_marginTop="40dp"
+            style="@style/headerText"
+            android:text="Shop details"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@drawable/layout_bg"/>
+
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/nameImageView1"
+                android:src="@drawable/ic_name"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Name"
+                android:layout_toRightOf="@id/nameImageView1"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/shop_name_distributor"
+                android:layout_toRightOf="@id/nameImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_shop_name_distributor"
+                android:layout_toRightOf="@id/nameImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/shop_edit_name_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/mobileImageView1"
+                android:src="@drawable/ic_mobile"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Mobile"
+                android:layout_toRightOf="@id/mobileImageView1"
+                style="@style/profileDetailsTextMain"/>
+
+            <TextView
+                android:id="@+id/shop_mobile_distributor"
+                android:layout_toRightOf="@id/mobileImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_shop_mobile_distributor"
+                android:layout_toRightOf="@id/mobileImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/shop_edit_mobile_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/addressImageView1"
+                android:src="@drawable/ic_address"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Address"
+                android:layout_toRightOf="@id/addressImageView1"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/shop_address_distributor"
+                android:layout_toRightOf="@id/addressImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_shop_address_distributor"
+                android:layout_toRightOf="@id/addressImageView1"
+                style="@style/profileDetailsMiniText" />
+
+            <ImageButton
+                android:id="@+id/shop_edit_address_distributor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_light_hash_20dp"
+                android:background="@color/white"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text=" update "
+            android:textAllCaps="false"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/profilePrimaryDark"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
